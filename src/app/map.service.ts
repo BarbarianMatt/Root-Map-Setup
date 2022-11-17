@@ -424,7 +424,7 @@ export class MapService {
         if (loops1>=100000 || loops2>=100000)
             output='error';
         //output='Map: Winter\r\n\r\nDeck: Standard\r\n\r\nClearings: F1, M2, M3, M4, F5, R6, F7, R8, F9, R10, M11, R12\r\n\r\nM: Standard Deck\r\n\r\nc: Mechanical Marquise 2.0 (Iron will)\r\n\r\nē: Vault Keepers ▲\r\n\r\nė: Riverfolk Flotilla ▲\r\n\r\nĐ: Flame Bearers ▲\r\n\r\nP: Corvid Conspiracy\r\n\r\nD: Underground Duchy\r\n\r\nV: Vagabond\r\n\r\nẢ: Ranger\r\n\r\nM:b->8/b_s->9/b_w->11/b_r->12/t_f->7/t_c->12\r\n\r\nc:t_k->2/w->2+1+2+3+5+6+7+8+9+10+11+12/b_r->6/b_s->7/b_w->12\r\n\r\nē:b+2w->12\r\n\r\nė:w->10\r\n\r\nĐ:w->1+4\r\n'
-        console.log(output);
+        //console.log(output);
         return output;
     }
 }
