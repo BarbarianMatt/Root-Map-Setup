@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1668726249033,
+  "timestamp": 1668726756508,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -16,7 +16,7 @@
         "/7.6e3c8fd59297fd9f9525.js",
         "/common.85ba9967e17be674c0e0.js",
         "/index.html",
-        "/main.af5289247c45793e70a6.js",
+        "/main.21111f1b2e16adeec69b.js",
         "/polyfills.32ac1633794279051b83.js",
         "/runtime.c7a299bab4620fcb57fd.js",
         "/styles.5b94688dcd54d7bb5a65.css"
@@ -315,8 +315,8 @@
     "/assets/warrior/faction-warlordBot.png": "69fcbc3447b33bebaafa3f75c702ed57e4d193b0",
     "/assets/warrior/faction-woodlandBot.png": "2c550adc973fcf524c689edacdc9e1e002faf66c",
     "/common.85ba9967e17be674c0e0.js": "4c9e879b0d418b1a89e077ff9d34c44120763ed2",
-    "/index.html": "cbc582834515516c43bb3924490068413c3854dd",
-    "/main.af5289247c45793e70a6.js": "981255ea1a1beeac505f95f17a4ba2fee8623fa1",
+    "/index.html": "c401d23616dbc565899a0b1dd223ba4d00a37a8e",
+    "/main.21111f1b2e16adeec69b.js": "be8ddbb5e00dbe497f8ef1efc234d791c2344c4b",
     "/polyfills.32ac1633794279051b83.js": "034ce1d5fcab7e2fb3bd164541685083a204934a",
     "/runtime.c7a299bab4620fcb57fd.js": "6e0724f22a42cd5c91cbbb079915e0b7eac7a633",
     "/styles.5b94688dcd54d7bb5a65.css": "f47c044d494569f10f09f669b7220148b07ffafe"
