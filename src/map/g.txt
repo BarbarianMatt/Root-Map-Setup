@@ -1,1 +1,0 @@
-Map: Fall\r\n\r\nDeck: E&P\r\n\r\nClearings: F1, R2, R3, R4, M5, M6, F7, M8, R9, F10, F11, M12\r\n\r\nM: E&P Deck\r\n\r\nČ: Sunward Expedition ▲\r\n\r\nĞ: The Exile ▲\r\n\r\nĉ: Spring Uprising ▲\r\n\r\nC: Marquise de Cat\r\n\r\nH: Lord of the Hundreds\r\n\r\nK: Keepers in Iron\r\n\r\nM:t_f->5\r\n\r\nČ:t+3w->5\r\n\r\nĞ:w->2_6_10_11_12\r\n\r\nĉ:w->8+8
