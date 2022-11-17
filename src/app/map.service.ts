@@ -208,7 +208,6 @@ export class MapService {
 
         // randomly select bots
         var botsList = choose(bot,bots);
-        botsList.push('c');
         for (var i=0; i<botsList.length;i++) {
             remove(factions, botsList[i].toUpperCase());
             if (botsList[i]=='v')
@@ -289,7 +288,6 @@ export class MapService {
         // band, bandits, dynasty, exile, expedition, flamebearers, flotilla, patrol, prophets, protector, spies, uprising, vaultkeepers
         var noneTypeHirelings=['B','N','R'];
         var hirelings = choose(factions.concat(noneTypeHirelings), (h ? 3: 0));
-        hirelings[0]='K';
         for (var i=0; i<hirelings.length;i++){
             var hire=hirelings[i];
             if (factions.includes(hire) && (factions.length- (hire == 'V' ? 2 : 1))<players+1)
