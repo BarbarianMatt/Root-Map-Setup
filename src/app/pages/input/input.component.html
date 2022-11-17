@@ -1,0 +1,84 @@
+
+<mat-toolbar color="primary"[routerLink]="['/']">
+  <span>Root Map Setup</span>
+</mat-toolbar>
+
+<div class="container">
+  <!--<div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Game Input</mat-label>
+        <textarea matInput
+                  class="input-game"
+                  placeholder="Enter Rootlog game data here..."
+                  (keyup)="gameChange()"
+                  [(ngModel)]="game2"
+                  [ngModelOptions]="{ standalone: true }"></textarea>
+        <mat-hint *ngIf="validRootlog">This is a valid Rootlog!</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+  
+
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Game URL</mat-label>
+        <input matInput
+               type="text"
+               class="input-game"
+               placeholder="Enter Rootlog game url here..."
+               (keyup)="gameUrlChange()"
+               [(ngModel)]="gameUrl"
+               [ngModelOptions]="{ standalone: true }" />
+        <mat-hint *ngIf="validRootlogUrl">This URL contains valid Rootlog!</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>-->
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Players</mat-label>
+        <textarea matInput
+                  class="input-game"
+                  placeholder="Enter # of players here..."
+                  (keyup)="gameChange()"
+                  [(ngModel)]="players"
+                  [ngModelOptions]="{ standalone: true }"></textarea>
+      </mat-form-field>
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Bots</mat-label>
+        <textarea matInput
+                  class="input-game"
+                  placeholder="Enter # of bots here..."
+                  (keyup)="gameChange()"
+                  [(ngModel)]="bots"
+                  [ngModelOptions]="{ standalone: true }"></textarea>
+      </mat-form-field>
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-checkbox (change)="gameChange()" [(ngModel)]="hirelings"> Hirelings?
+      </mat-checkbox>
+      
+    </div>
+    <mat-checkbox (change)="gameChange()" [(ngModel)]="balanced"> Balanced Clearings?
+    </mat-checkbox>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button mat-flat-button
+              color="primary"
+              [routerLink]="['/full-game']"
+              [queryParams]="getURLParams()"
+              [disabled]="!validRootlog && !validRootlogUrl">Generate Map</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,290 @@
+
+<div class="row items-row">
+  <div class="col">
+    <div class="items" *ngIf="state && state.craftedItems">
+      <img class="item"
+           *ngFor="let item of rootlogService.allItems"
+           [class.crafted]="(state.craftedItems[item.item] || 0) > item.craftedIf"
+           [src]="'assets/icon/item-' + item.item + '.png'" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col clearing-col">
+    <mat-card class="clearing-info-container" *ngIf="game && clearing && state && game.clearings">
+      <mat-card-header>
+        <mat-card-title>Clearing #{{ currentClearing }}</mat-card-title>
+
+        <img class="clearing-suit" [src]="'assets/clearing/clearing-' + rootlogService.getSuitName(game.clearings[currentClearing - 1]) + '.png'" *ngIf="currentClearing > 0" />
+      </mat-card-header>
+
+      <mat-card-content>
+        <div>
+          <div class="clearing-warriors" *ngIf="clearingHasWarriors(clearing)">
+            <h3>Warriors</h3>
+
+            <div class="clearing-warrior-container-container">
+              <div class="clearing-warrior-container" *ngFor="let warCount of filterZeros(clearing.warriors) | keyvalue" [class.hidden]="!warCount.value">
+                <img class="clearing-component warrior"
+                     [src]="'assets/warrior/faction-' + rootlogService.getFactionName(warCount.key) + '.png'" />
+
+                <div>
+                  x{{ warCount.value }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearing-buildings" *ngIf="clearingHasBuildings(clearing)">
+            <h3>Buildings</h3>
+
+            <img class="clearing-component building"
+                  *ngFor="let building of getBuildings(clearing)"
+                  [class.negative]="building.isNegative"
+                  (click)="rootlogService.lootRuin(building,clearing)" 
+                  [src]="'assets/buildings/' + getBuildingName(building,clearing) + '.png'" />
+                  
+                 
+          </div>
+
+          <div class="clearing-tokens" *ngIf="clearingHasTokens(clearing)">
+            <h3>Tokens</h3>
+
+            <img class="clearing-component token"
+                  *ngFor="let token of getTokens(clearing)"
+                  [class.negative]="token.isNegative"
+                  [src]="'assets/tokens/' + token.name + '.png'" />
+          </div>
+          <div class="clearing-landmarks" *ngIf="clearingHasLandmarks(clearing)">
+            <h3>Landmarks</h3>
+
+            <img class="clearing-component-landmark"
+                  *ngFor="let token of getLandmarks(clearing)"
+                  [class.negative]="token.isNegative"
+                  [src]="'assets/tokens/' + token.name + '.png'" />
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col">
+    <div class="map-container">
+      <div class="map" *ngIf="state">
+
+        <img class="map-icon" [src]="'assets/map/map-' + game.map.toLowerCase() + '.png'" />
+        <!--<div class="map-clearing burrow"
+             [ngClass]="[game.map.toLowerCase()]"
+             *ngIf="false"
+             (click)="showClearingInfo(0)"
+             [class.error]="clearingHasErrors(0, state)"
+             [class.selected]="currentClearing === 0">
+
+          <img class="map-pin" [src]="'assets/clearing/clearing-burrow.png'" />
+
+          <div class="map-components" *ngIf="state">
+            <img class="map-component warrior"
+                *ngFor="let warCount of state.clearings[0].warriors | keyvalue"
+                [class.hidden]="!isPositive(warCount.value)"
+                [src]="'assets/icon/faction-' + rootlogService.getFactionName(warCount.key) + '.png'" />
+          </div>
+
+        </div>-->
+        <div class="map-clearing forest"
+             [ngClass]="['forest-' + (forest.key || '')]"
+             *ngFor="let forest of rootlogService.getForests(game.map) | keyvalue"
+             [style.left]="forest.value[0] + 'px'"
+             [style.top]="forest.value[1] + 'px'">
+
+             <div class="map-components">
+              <img class="map-component warrior"
+                  *ngFor="let warCount of state.forests[forest.key].warriors | keyvalue"
+                  [class.hidden]="!warCount.value"
+                  [src]="'assets/warrior/faction-' + rootlogService.getFactionName(warCount.key) + '.png'" />
+              <img class="map-component token"
+                  *ngFor="let token of getTokens(state.forests[forest.key])"
+                  [class.hidden]="token.isNegative"
+                  [src]="'assets/tokens/' + token.name + '.png'" />
+             </div>
+        </div>
+        <div class="map-clearing path"
+             [ngClass]="['path-' + (path.key || '')]"
+             *ngFor="let path of rootlogService.getPaths(game.map) | keyvalue"
+             [style.left]="path.value[0] + 'px'"
+             [style.top]="path.value[1] + 'px'">
+
+             <div class="map-components">
+              <img class="map-component warrior"
+                  *ngFor="let warCount of state.forests[path.key].warriors | keyvalue"
+                  [class.hidden]="!warCount.value"
+                  [src]="'assets/icon/faction-' + rootlogService.getFactionName(warCount.key) + '.png'" />
+             </div>
+        </div>
+        <div class="map-clearing"
+             [ngClass]="['clearing-' + (i + 1), 'clearing-' + suit]"
+             *ngFor="let suit of game.clearings; let i = index"
+             [class.selected]="currentClearing === i + 1"
+             [class.error]="clearingHasErrors(i + 1, state, suit)"
+             (click)="showClearingInfo(i + 1)"
+             [style.left]="rootlogService.getClearingPositions(game.map)[i][0] + 'px'"
+             [style.top]="rootlogService.getClearingPositions(game.map)[i][1] + 'px'">
+
+          <img class="map-combat" *ngIf="action.combat && action.combat.clearing === i + 1" src="assets/svg/combat.svg" />
+
+          <img class="map-pin" [src]="'assets/clearing/clearing-' + rootlogService.getSuitName(suit) + '.png'" />
+
+          <div class="map-components">
+            <img class="map-component-landmark landmark"
+                  *ngFor="let token of getLandmarks(state.clearings[i + 1])"
+                  [class.hidden]="token.isNegative"
+                  [src]="'assets/tokens/' + token.name + '.png'" />
+
+            <img class="map-component building"
+                  *ngFor="let building of getBuildings(state.clearings[i + 1])"
+                  [class.hidden]="building.isNegative"
+                  [src]="'assets/buildings/' + building.name + '.png'" />
+
+            <img class="map-component token"
+                  *ngFor="let token of getTokens(state.clearings[i + 1])"
+                  [class.hidden]="token.isNegative"
+                  [src]="'assets/tokens/' + token.name + '.png'" />
+            
+            <!--<img class="map-component warrior"
+                *ngFor="let warCount of state.clearings[i + 1].warriors | keyvalue"
+                [class.hidden]="!isPositive(warCount.value)"
+                [src]="'assets/icon/faction-' + rootlogService.getFactionName(warCount.key) + '.png'" />-->
+            <img class="map-component warrior"
+                *ngFor="let warrior of getWarriors(state.clearings[i + 1])"
+                [src]="'assets/warrior/faction-' + rootlogService.getFactionName(warrior.name) + '.png'" />
+          </div>
+        
+        </div>
+        
+        
+
+      </div>
+    </div>
+  </div>
+  <div class="container">
+  <div class="col players-col" *ngIf="getPlayers(game).length!=0">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Draft</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="players" *ngIf="state">
+          <div class="player" *ngFor="let player of getPlayers(game)">
+            <!--<mat-icon class="player-turn" *ngIf="isActiveTurn(player.key)">play_arrow</mat-icon>-->
+            <img class="player-icon" [src]="'assets/icon/faction-' + rootlogService.getFactionNameAndDeck(player) + '.png'" />
+            <span class="player-name" (click)="rootlogService.displayRelics(state,player)">{{ player.value }}</span>
+            <!--<span class="player-vp">[{{ getCurrentVP(player.key) }}]</span>-->
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col hirelings-col" *ngIf="getHirelings(game).length!=0">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Hirelings</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="hirelings" *ngIf="state">
+          <div class="player" *ngFor="let player of getHirelings(game)">
+            <!--<mat-icon class="player-turn" *ngIf="isActiveTurn(player.key)">play_arrow</mat-icon>-->
+            <img class="player-icon" [src]="'assets/icon/faction-' + rootlogService.getFactionName(player.key) + '.png'" />
+            <span class="player-name">{{ player.value }}</span>
+            <!--<span class="player-vp">[{{ getCurrentVP(player.key) }}]</span>-->
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col bots-col" *ngIf="getBots(game).length!=0">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Bots</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="bots" *ngIf="state">
+          <div class="player" *ngFor="let player of getBots(game)">
+            <!--<mat-icon class="player-turn" *ngIf="isActiveTurn(player.key)">play_arrow</mat-icon>-->
+            <img class="player-icon" [src]="'assets/icon/faction-' + rootlogService.getFactionName(player.key) + '.png'" />
+            <span class="player-name">{{ player.value }}</span>
+            <!--<span class="player-vp">[{{ getCurrentVP(player.key) }}]</span>-->
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  </div>
+</div>
+
+
+<!--<div class="row controls-row">
+
+  <div class="controls">
+    <button mat-icon-button
+            [disabled]="currentAction === 0"
+            (click)="prevTurn()"
+            matTooltip="Previous Turn"
+            color="accent">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            [disabled]="currentAction === 0"
+            (click)="setAction(currentAction - 1)"
+            matTooltip="Previous Action"
+            color="accent">
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+
+    <mat-slider color="accent"
+                defaultColor="accent"
+                min="0"
+                [max]="allActions.length - 1"
+                (change)="setAction($event.value || 0)"
+                [(ngModel)]="currentAction"></mat-slider>
+
+    <button mat-icon-button
+            [disabled]="currentAction === allActions.length - 1"
+            (click)="setAction(currentAction + 1)"
+            matTooltip="Next Action"
+            color="accent">
+      <mat-icon>arrow_right</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            [disabled]="currentAction === allActions.length - 1"
+            (click)="nextTurn()"
+            matTooltip="Next Turn"
+            color="accent">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+
+    <button mat-icon-button
+            (click)="toggleAutoplay()"
+            *ngIf="!autoPlay"
+            matTooltip="Toggle Autoplay"
+            color="accent">
+      <mat-icon>double_arrow</mat-icon>
+    </button>
+
+    <button mat-mini-fab
+            (click)="toggleAutoplay()"
+            *ngIf="autoPlay"
+            matTooltip="Toggle Autoplay"
+            color="accent">
+      <mat-icon>double_arrow</mat-icon>
+    </button>
+
+    <div class="current-action">
+      <div>
+        <span class="action-turn">({{ currentAction + 1 }}/{{ allActions.length }})</span>
+        <span class="action-taker">[{{ rootlogService.getFactionProperName(action.currentTurn) }}]</span>
+        <span class="action-desc">{{ action.description }}</span>
+      </div>
+    </div>
+  </div>
+</div>-->
