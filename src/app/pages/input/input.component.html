@@ -63,14 +63,15 @@
       
     </div>
   </div>
-  <div class="row">
-    <div class="col">
+  <div class="row-check">
+    <div class="row-col">
       <mat-checkbox (change)="gameChange()" [(ngModel)]="hirelings"> Hirelings?
       </mat-checkbox>
-      
-    </div>
-    <mat-checkbox (change)="gameChange()" [(ngModel)]="balanced"> Balanced Clearings?
-    </mat-checkbox>
+    </div>  
+    <div class="row-col">
+      <mat-checkbox (change)="gameChange()" [(ngModel)]="balanced"> Balanced Clearings?
+      </mat-checkbox>
+    </div>  
   </div>
   <div class="row">
     <div class="col">

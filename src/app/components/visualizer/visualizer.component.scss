@@ -2,21 +2,17 @@
 mat-card {
   background-color: #646464;
   flex: 1;
+  flex-grow: 1;
 
   mat-card-content {
     padding-left: 16px;
+    max-height: 100%;
   }
 }
-
 :host {
   display: flex;
   flex-direction: column;
   position: relative;
-
-  //flex-wrap: wrap;
-  //justify-content: flex-start;
-  //min-width:600px;
-  //flex-shrink:2;
 
   width: 100%;
   height: 100%;
@@ -42,13 +38,14 @@ mat-card {
     min-width:300px;
   }
   .map-col{
-    //width: 450px;
-    //max-width: 450px;
     min-width:450px;
+    overflow: visible;
   }
   .players-col {
     width: 200px;
     max-width: 200px;
+    overflow: visible;
+    height:100%;
   }
   .hirelings-col {
     width: 200px;
@@ -63,7 +60,7 @@ mat-card {
   }
 
   .clearing-col, .players-col, .hirelings-col, .bots-col, .map-col {
-    align-items: flex-start;
+    align-items: safe flex-start;
   }
 
   .items {
@@ -126,13 +123,13 @@ mat-card {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      align-items: flex-start;
+      align-items: safe flex-start;
 
       .clearing-warrior-container {
         flex: 1;
         display: flex;
         flex-direction: row;
-        align-items: center;
+        align-items: safe center;
 
         img {
           margin-right: 16px;
@@ -168,7 +165,7 @@ mat-card {
         max-width: 24px;
         max-height: 20px;
         margin-right: 5px;
-        align-self:flex-start;
+        align-self: safe flex-start;
       }
 
       .player-name {
@@ -185,8 +182,9 @@ mat-card {
   .container {
     padding: 1px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
+    height:100%;
   
     .row {
       margin-left: 20%;
@@ -253,7 +251,7 @@ mat-card {
         max-width: 24px;
         max-height: 20px;
         margin-right: 5px;
-        align-self:flex-start;
+        align-self: afe flex-start;
       }
 
       .player-name {
@@ -269,16 +267,12 @@ mat-card {
   }
   .map-container {
     flex: 1;
-
     display: flex;
     justify-content: center;
+    background-color: #000;
 
-    overflow: hidden;
-    min-width: 450px;
-    
     .map {
       position: relative;
-      min-width: 450px;
       .map-clearing {
         position: absolute;
         min-width: 80px;

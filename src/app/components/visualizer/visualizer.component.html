@@ -71,8 +71,8 @@
   <div class="col map-col">
     <div class="map-container">
       <div class="map" *ngIf="state">
-
-        <img class="map-icon" [src]="'assets/map/map-' + game.map.toLowerCase() + '.png'" />
+          <img class="map-icon" [src]="'assets/map/map-' + game.map.toLowerCase() + '.png'" />
+        
         <!--<div class="map-clearing burrow"
              [ngClass]="[game.map.toLowerCase()]"
              *ngIf="false"
@@ -166,23 +166,23 @@
     </div>
   </div>
   <div class="container">
-  <div class="col players-col" *ngIf="getPlayers(game).length!=0">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Draft</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="players" *ngIf="state">
-          <div class="player" *ngFor="let player of getPlayers(game)" (click)="rootlogService.displayRelics(state,player)">
-            <!--<mat-icon class="player-turn" *ngIf="isActiveTurn(player.key)">play_arrow</mat-icon>-->
-            <img class="player-icon" [src]="'assets/icon/faction-' + rootlogService.getFactionNameAndDeck(player) + '.png'" />
-            <span class="player-name">{{ player.value }}</span>
-            <!--<span class="player-vp">[{{ getCurrentVP(player.key) }}]</span>-->
+    <div class="col players-col" *ngIf="getPlayers(game).length!=0">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Draft</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="players" *ngIf="state">
+            <div class="player" *ngFor="let player of getPlayers(game)" (click)="rootlogService.displayRelics(state,player)">
+              <!--<mat-icon class="player-turn" *ngIf="isActiveTurn(player.key)">play_arrow</mat-icon>-->
+              <img class="player-icon" [src]="'assets/icon/faction-' + rootlogService.getFactionNameAndDeck(player) + '.png'" />
+              <span class="player-name">{{ player.value }}</span>
+              <!--<span class="player-vp">[{{ getCurrentVP(player.key) }}]</span>-->
+            </div>
           </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   <div class="col hirelings-col" *ngIf="getHirelings(game).length!=0">
     <mat-card>
       <mat-card-header>

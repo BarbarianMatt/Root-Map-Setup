@@ -1,19 +1,32 @@
 
 .container {
   padding: 10px;
-
   .row {
     margin-left: 20%;
     margin-right: 20%;
+  }
+  .row-check{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 20%;
+    margin-right: 20%;
+    justify-content: space-between;
+    .row-col{
+      min-width:100px;
+    }
   }
 }
 
 mat-form-field, button {
   width: 100%;
 }
-
+.row-check{
+    margin-top: 20px; 
+  }
 .row {
   margin-top: 20px;
+  
 }
 
 
