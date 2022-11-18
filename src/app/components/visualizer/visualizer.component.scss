@@ -42,6 +42,8 @@ mat-card {
     min-width:300px;
   }
   .map-col{
+    //width: 450px;
+    //max-width: 450px;
     min-width:450px;
   }
   .players-col {
@@ -60,7 +62,7 @@ mat-card {
     width: 100%;
   }
 
-  .clearing-col, .players-col, .hirelings-col, .bots-col {
+  .clearing-col, .players-col, .hirelings-col, .bots-col, .map-col {
     align-items: flex-start;
   }
 
@@ -272,10 +274,11 @@ mat-card {
     justify-content: center;
 
     overflow: hidden;
-    min-width: 100px; 
+    min-width: 450px;
     
     .map {
       position: relative;
+      min-width: 450px;
       .map-clearing {
         position: absolute;
         min-width: 80px;
