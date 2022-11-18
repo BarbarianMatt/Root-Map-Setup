@@ -1,6 +1,6 @@
 {
-    "name": "Rootvis",
-    "short_name": "Rootvis",
+    "name": "Root Map Setup",
+    "short_name": "rootMapSetup",
     "theme_color": "#378065",
     "background_color": "#378065",
     "display": "standalone",

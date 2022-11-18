@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1668799722368,
+  "timestamp": 1668804023249,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -16,7 +16,7 @@
         "/7.6e3c8fd59297fd9f9525.js",
         "/common.85ba9967e17be674c0e0.js",
         "/index.html",
-        "/main.b61a326a411d377daf83.js",
+        "/main.e3d774023fa68c9a0bda.js",
         "/polyfills.32ac1633794279051b83.js",
         "/runtime.c7a299bab4620fcb57fd.js",
         "/styles.5b94688dcd54d7bb5a65.css"
@@ -209,7 +209,7 @@
     "/assets/favicon/favicon-16x16.png": "4669a66c8ad34327c4f5ea9c31952eb9a7030e5c",
     "/assets/favicon/favicon-32x32.png": "7c70be2a79efc7d0a82a1db2ec1d1864dd1bee3e",
     "/assets/favicon/favicon.ico": "a906526fdcfa8858d17cd53a3849685fe7cd19b5",
-    "/assets/favicon/manifest.json": "0d78df8ac410d92e593a60d968a081824cd3fa34",
+    "/assets/favicon/manifest.json": "c003da3c0bdbd78f095d948cc2782af47bb3975e",
     "/assets/favicon/mstile-150x150.png": "f1c7c9cdfde3e5fb433b9e1cb3a3916017aae552",
     "/assets/favicon/safari-pinned-tab.svg": "460b01a7e14e09637ef363045fb5a2d19e35ea36",
     "/assets/icon/faction-adventurer.png": "8c8bf5a85bdc30f5bfbad1e5274c4bc9f61b660d",
@@ -315,8 +315,8 @@
     "/assets/warrior/faction-warlordBot.png": "69fcbc3447b33bebaafa3f75c702ed57e4d193b0",
     "/assets/warrior/faction-woodlandBot.png": "2c550adc973fcf524c689edacdc9e1e002faf66c",
     "/common.85ba9967e17be674c0e0.js": "4c9e879b0d418b1a89e077ff9d34c44120763ed2",
-    "/index.html": "0eff64b63fbc491d0a6978807f09cf07010746b0",
-    "/main.b61a326a411d377daf83.js": "f344ae98718d05ecb8f9a370475e922d3beec91d",
+    "/index.html": "23ef4f3114df9774500ad52b433ee5f640a42fc3",
+    "/main.e3d774023fa68c9a0bda.js": "d9a910a66567143dfd23a0103a05423ab2e7d6a9",
     "/polyfills.32ac1633794279051b83.js": "034ce1d5fcab7e2fb3bd164541685083a204934a",
     "/runtime.c7a299bab4620fcb57fd.js": "6e0724f22a42cd5c91cbbb079915e0b7eac7a633",
     "/styles.5b94688dcd54d7bb5a65.css": "f47c044d494569f10f09f669b7220148b07ffafe"
