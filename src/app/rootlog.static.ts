@@ -364,7 +364,7 @@ export const factionProperNames: Record<RootFaction, string> = {
   ['d' as RootFaction]: 'Dummy Duchy',
   ['o' as RootFaction]: 'Rivetfolk',
   ['Ạ' as RootFaction]: 'Adventurer',
-  ['Å' as RootFaction]: 'arbiter',
+  ['Å' as RootFaction]: 'Arbiter',
   ['Ä' as RootFaction]: 'Harrier',
   ['Ả' as RootFaction]: 'Ranger',
   ['Ḁ' as RootFaction]: 'Ronin',
