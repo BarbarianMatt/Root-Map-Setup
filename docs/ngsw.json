@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1668818041217,
+  "timestamp": 1668892168628,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,14 +11,14 @@
         "ignoreVary": true
       },
       "urls": [
-        "/2.ecbf31602d305fdb95d0.js",
+        "/2.25a907269f5d453e8da8.js",
         "/6.39f02fb7cd7366d0cbff.js",
         "/7.ae3298682b904b9f71cd.js",
         "/common.85ba9967e17be674c0e0.js",
         "/index.html",
-        "/main.b037c8daa9efb16c2524.js",
+        "/main.52fd701cf58bf11831ee.js",
         "/polyfills.32ac1633794279051b83.js",
-        "/runtime.96d6850197bd0b3c2eb3.js",
+        "/runtime.2c873c0041d0dbe7470e.js",
         "/styles.5b94688dcd54d7bb5a65.css"
       ],
       "patterns": []
@@ -175,7 +175,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/2.ecbf31602d305fdb95d0.js": "c3dc6636083829ca924e88f5c17ba9dbb7783db9",
+    "/2.25a907269f5d453e8da8.js": "8c732a66622444be438af99aa584f6bcafb93cee",
     "/6.39f02fb7cd7366d0cbff.js": "4aa50b9ef62248ce9d4e0feaba972810ee1ce36a",
     "/7.ae3298682b904b9f71cd.js": "519ee4b760c9cc4c5e2b1e3615db1d442214fef6",
     "/assets/buildings/a_b_f.png": "b3c70309f24ceb97afa22a20d8041a20404cd793",
@@ -317,10 +317,10 @@
     "/assets/warrior/faction-warlordBot.png": "69fcbc3447b33bebaafa3f75c702ed57e4d193b0",
     "/assets/warrior/faction-woodlandBot.png": "2c550adc973fcf524c689edacdc9e1e002faf66c",
     "/common.85ba9967e17be674c0e0.js": "4c9e879b0d418b1a89e077ff9d34c44120763ed2",
-    "/index.html": "3052656a367a1175315f5b5d6539c9369c96b572",
-    "/main.b037c8daa9efb16c2524.js": "e7e8cc81543b688e5bf4ab4de85e10103509d7de",
+    "/index.html": "bdddc9fe3da1a9888638d904a7d2443371d9dd01",
+    "/main.52fd701cf58bf11831ee.js": "e5e01ed94d4b787b60c0683c7ab89ed8a00ff542",
     "/polyfills.32ac1633794279051b83.js": "034ce1d5fcab7e2fb3bd164541685083a204934a",
-    "/runtime.96d6850197bd0b3c2eb3.js": "cfc94e8d3124836f8e36a215486d109a411b6ee3",
+    "/runtime.2c873c0041d0dbe7470e.js": "cfdd5305633cdd91df74ffbe19201e03fdb7c49f",
     "/styles.5b94688dcd54d7bb5a65.css": "f47c044d494569f10f09f669b7220148b07ffafe"
   },
   "navigationUrls": [

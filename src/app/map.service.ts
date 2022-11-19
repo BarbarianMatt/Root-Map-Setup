@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { RootFaction, RootGame, RootMap, RootSuit} from '@seiyria/rootlog-parser';
 import * as _ from 'lodash';
 import { RootlogService} from  './rootlog.service';
-import { mapData, RootClearing, forestPositions, pathPositions, change, factionTraits} from  './rootlog.static';
+import { mapData, RootClearing, forestPositions, pathPositions, change,invChange, factionTraits} from  './rootlog.static';
 
 function choose(array: Array<any>, n: number) {
     var shuffled=shuffle(array);
@@ -63,23 +63,23 @@ function validLandmark(landmark: string, clearing: number, used: Array<number>, 
 function clone(obj: any){
     return JSON.parse(JSON.stringify(obj));
 }
-function validFactionPool(factionChoices: Array<string>,players: number){
+function validFactionPool(factionChoices: Array<string>,players: number, options: any){
     //adventurer,arbiter,harrier,ranger,ronin,scoundrel,thief,tinker,vagrant
     var vagabondClasses = ['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'];
+    vagabondClasses = vagabondClasses.filter(val=>!options.bannedClasses[val].banned);
+    if (vagabondClasses.length < (1 + (factionChoices.includes('G') ? 1 : 0)) || factionChoices.length<Math.max(players+1,3))
+        return 'error';
     var fac =[];
     var factions = clone(factionChoices);
+    remove(factions,'G');
     for (var i=0; i<Math.max(players+1,3);i++) {
         var f=choose(factions,1)[0];
         fac.push(f);
         factions.splice(factions.indexOf(f),1);
 
-        if (f == 'V'){
+        if (f == 'V' && factionChoices.includes('G'))
             factions.push('G');
-            var v = choose(vagabondClasses,1)[0]
-            fac.push(v);
-            vagabondClasses.splice(vagabondClasses.indexOf(v),1);
-        }
-        else if (f == 'G'){
+        if (f == 'G' || f == 'V'){
             var v = choose(vagabondClasses,1)[0]
             fac.push(v);
             vagabondClasses.splice(vagabondClasses.indexOf(v),1);
@@ -98,16 +98,22 @@ function remove(array: Array<any>, element: any){
 
 export class MapService {
     constructor(private rootlogService: RootlogService) {}
-    public mapSetup(players: number, bots: number, h: boolean, balanced: boolean): string {
+    public mapSetup(options: any): string {
+        var players=parseInt(options.players);
+        var bots=parseInt(options.bots);
+        var h=options.hirelings;
+        var balanced=options.balanced;
         var output=''
         // randomly select map
-        var maps = [RootMap.Fall, RootMap.Winter, RootMap.Lake, RootMap.Mountain];
+        var maps = Object.keys(options.bannedMaps).filter(val=>!options.bannedMaps[val].banned);
+        if (maps.length===0)
+            return 'error';
         //var maps = [RootMap.Fall];
         const map= choose(maps,1)[0] as RootMap;
         output=out(output,"Map: " + map);
 
         // randomly select deck
-        var deck=Math.random()<=0.9 ? 'E&P' : 'Standard';
+        var deck=Math.random()<=Number(options.epDeckOdds) ? 'E&P' : 'Standard';
         output=out(output,"Deck: " + deck);
 
         // randomly select suits
@@ -138,8 +144,8 @@ export class MapService {
         //swrkfrmcbe is which prefexes you are allowed to use
         // tower, marker, city, ferry, forge, treetop
         var landmarks = ["t","t_m","t_c","t_f",'t_k','t_r'];
-        var maxLandmarks=2;
-        var minLandmarks=0;
+        var maxLandmarks=parseInt(options.maxLandmarks);
+        var minLandmarks=parseInt(options.minLandmarks);
         var mean = (maxLandmarks+minLandmarks)/2
         var numl=Math.round(Math.max(Math.min(getNormallyDistributedRandomNumber(mean+0.1,mean*0.557),maxLandmarks),minLandmarks));
         var land = choose(landmarks,numl);
@@ -150,7 +156,7 @@ export class MapService {
         var found = false;
         var landmarkClearings=[];
         var loops1=0
-        while (!found && loops1<=100000) {
+        while (!found && loops1<=1000000) {
             landmarkClearings=[];
             found = true;
             land=shuffle(land);
@@ -167,7 +173,7 @@ export class MapService {
             }
             loops1+=1;
         }
-        if (loops1>=100000){
+        if (loops1>=1000000){
             console.log("looped too much");
         }
         //avaiable subnames for pieces are swrkfmcbe
@@ -202,12 +208,13 @@ export class MapService {
         }
 
         // variables
-        var factions=['P','L','D','E','C','O','V','A','K','H'];
+        var factions=['P','L','D','E','C','O','V','A','K','H','G'];
         var bot=['c','e','a','v','p','d','o','l'];
+        var possibleBots = bot.filter(val=>!options.bannedBots[val].banned);
         var vagabondBotClasses = ['å','ả','ấ','ầ','ẩ','ȃ'];
 
         // randomly select bots
-        var botsList = choose(bot,bots);
+        var botsList = choose(possibleBots,bots);
         for (var i=0; i<botsList.length;i++) {
             remove(factions, botsList[i].toUpperCase());
             if (botsList[i]=='v')
@@ -287,12 +294,15 @@ export class MapService {
         // randomly select hirelings
         // band, bandits, dynasty, exile, expedition, flamebearers, flotilla, patrol, prophets, protector, spies, uprising, vaultkeepers
         var noneTypeHirelings=['B','N','R'];
-        var hirelings = choose(factions.concat(noneTypeHirelings), (h ? 3: 0));
+        var possibleHirelings = factions.filter(val=>val!=='G' && !options.bannedHirelings[change(val)].banned).concat(noneTypeHirelings);
+        var hirelings = choose(possibleHirelings, (h ? 3: 0));
         for (var i=0; i<hirelings.length;i++){
             var hire=hirelings[i];
             if (factions.includes(hire) && (factions.length- (hire == 'V' ? 2 : 1))<players+1)
                 hire=choose(['B','N','R'].filter(val=>!hirelings.includes(val) && !hirelings.includes(val+'\u0301')),1)[0];   
             remove(factions,hire);
+            if (hire == 'V')
+                remove(factions,'G');
             hirelings[i]=change(hire);
             output=out(output,hirelings[i]+": "+this.rootlogService.getFactionProperName(hirelings[i]).split(',')[i+players+bots>4 ? 1 : 0]+ ' '+ (i+players+bots>4 ? '▼' : '▲'));
         }
@@ -385,25 +395,31 @@ export class MapService {
 
         // randomly select factions
         var militant = ['D','E','C','K','H'];
+        factions=factions.filter(val=>!options.bannedFactions[val].banned);
         var valid = false;
         var loops2 =0
-        var pool=militant;
-        while (!valid && loops2<=100000){
+        var pool=militant as any;
+        while (!valid && loops2<=1000000){
             valid = true;
-            pool=validFactionPool(factions,players);
+            pool=validFactionPool(factions,players,options);
+            if (pool == 'error')
+                return 'error';
             var totalMilitant = (militant.filter(value => pool.includes(value) || botsList.includes(value.toLowerCase()))).length;
             if (totalMilitant<1 || (players==2 && totalMilitant<3))
                 valid = false
             loops2+=1;
         }
-        if (loops2>=100000)
+        if (loops2>=1000000)
             console.log('looped too much')
         var totalMilitant = (militant.filter(value => pool.includes(value) || botsList.includes(value.toLowerCase()))).length;
         for (var i=0; i<pool.length;i++) {
             var str=pool[i]+": "+this.rootlogService.getFactionProperName(pool[i]);
-            if ((i==pool.length-1 && totalMilitant<=1 &&  !militant.includes(pool[i]) && !['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i]))
-            || (i==pool.length-2 && totalMilitant<=1 && (pool[i] == 'V' || pool[i] == 'G')) )
-                str+=' 🔒'
+            if(totalMilitant<=1){
+                if ((i==pool.length-3 && (pool[i]=='V' || pool[i]=='G') &&  militant.includes(pool[i+2])) ||
+                    (i==pool.length-2 && !militant.includes(pool[i]) && !['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i]) && (militant.includes(pool[i+1]) || ['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i+1]))) ||
+                    (i==pool.length-1 && !militant.includes(pool[i]) && !['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i])))
+                    str+=' 🔒'
+            }
             if (pool[i]=='K'){
                 var relics = ['t','t','t','t','t_k','t_k','t_k','t_k','t_m','t_m','t_m','t_m']
                 var forests = Object.keys(forestPositions[map]);
@@ -419,7 +435,7 @@ export class MapService {
             output=out(output,str);
         }
         output+=temp;
-        if (loops1>=100000 || loops2>=100000)
+        if (loops1>=1000000 || loops2>=1000000)
             output='error';
         //output='Map: Winter\r\n\r\nDeck: Standard\r\n\r\nClearings: F1, M2, M3, M4, F5, R6, F7, R8, F9, R10, M11, R12\r\n\r\nM: Standard Deck\r\n\r\nc: Mechanical Marquise 2.0 (Iron will)\r\n\r\nē: Vault Keepers ▲\r\n\r\nė: Riverfolk Flotilla ▲\r\n\r\nĐ: Flame Bearers ▲\r\n\r\nP: Corvid Conspiracy\r\n\r\nD: Underground Duchy\r\n\r\nV: Vagabond\r\n\r\nẢ: Ranger\r\n\r\nM:b->8/b_s->9/b_w->11/b_r->12/t_f->7/t_c->12\r\n\r\nc:t_k->2/w->2+1+2+3+5+6+7+8+9+10+11+12/b_r->6/b_s->7/b_w->12\r\n\r\nē:b+2w->12\r\n\r\nė:w->10\r\n\r\nĐ:w->1+4\r\n'
         //console.log(output);

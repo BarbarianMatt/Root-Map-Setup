@@ -1,6 +1,6 @@
 
 <mat-toolbar color="primary"[routerLink]="['/']">
-  <span>Root Map Setup</span>
+  <span (click)="reset()">Root Map Setup</span>
 </mat-toolbar>
 
 <div class="container">
@@ -43,7 +43,7 @@
                   class="input-game"
                   placeholder="Enter # of players here..."
                   (keyup)="gameChange()"
-                  [(ngModel)]="players"
+                  [(ngModel)]="options.players"
                   [ngModelOptions]="{ standalone: true }"></textarea>
       </mat-form-field>
       
@@ -57,7 +57,7 @@
                   class="input-game"
                   placeholder="Enter # of bots here..."
                   (keyup)="gameChange()"
-                  [(ngModel)]="bots"
+                  [(ngModel)]="options.bots"
                   [ngModelOptions]="{ standalone: true }"></textarea>
       </mat-form-field>
       
@@ -65,13 +65,98 @@
   </div>
   <div class="row-check">
     <div class="row-col">
-      <mat-checkbox (change)="gameChange()" [(ngModel)]="hirelings"> Hirelings?
-      </mat-checkbox>
+      <mat-checkbox (change)="gameChange()" [(ngModel)]="options.hirelings"> Hirelings?</mat-checkbox>
+      
     </div>  
     <div class="row-col">
-      <mat-checkbox (change)="gameChange()" [(ngModel)]="balanced"> Balanced Clearings?
-      </mat-checkbox>
-    </div>  
+      <mat-checkbox (change)="gameChange()" [(ngModel)]="options.balanced"> Balanced Clearings?</mat-checkbox>
+    </div>
+    <div class="row-col">
+      <mat-checkbox (change)="gameChange()" [(ngModel)]="options.extra"> Extra Settings?</mat-checkbox>
+    </div>
+  </div>
+  <div *ngIf="options.extra">
+    <div class="center">
+      <h1 (click)="all('bannedFactions')">Banned Factions</h1>
+    </div>
+    <div class="row-check"> 
+      <div class="row-col" *ngFor="let faction of keys(getFactions()); let index = index">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.bannedFactions[faction].banned"> {{options.bannedFactions[faction].properName}}</mat-checkbox>
+      </div> 
+    </div>
+    <div class="center">
+      <h1 (click)="all('bannedMaps')">Banned Maps</h1>
+    </div>
+    <div class="row-check"> 
+      <div class="row-col" *ngFor="let faction of keys(getMaps()); let index = index">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.bannedMaps[faction].banned"> {{options.bannedMaps[faction].properName}}</mat-checkbox>
+      </div> 
+    </div>
+    <div class="center">
+      <h1 (click)="all('bannedBots')">Banned Bots</h1>
+    </div>
+    <div class="row-check"> 
+      <div class="row-col" *ngFor="let faction of keys(getBots()); let index = index">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.bannedBots[faction].banned"> {{options.bannedBots[faction].properName}}</mat-checkbox>
+        
+      </div>   
+    </div>
+    <div class="center">
+      <h1 (click)="all('bannedClasses')">Banned Vagabond Classes</h1>
+    </div>
+    <div class="row-check"> 
+      <div class="row-col" *ngFor="let faction of keys(getClasses()); let index = index">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.bannedClasses[faction].banned"> {{options.bannedClasses[faction].properName}}</mat-checkbox>
+      </div>
+    </div>
+    <div class="center">
+      <h1 (click)="all('bannedHirelings')">Banned Hirelings</h1>
+    </div>
+    <div class="row-check"> 
+      <div class="row-col" *ngFor="let faction of keys(getHirelings()); let index = index">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.bannedHirelings[faction].banned"> {{options.bannedHirelings[faction].properName}}
+        </mat-checkbox>
+      </div>   
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Max Landmarks</mat-label>
+          <textarea matInput
+                    class="input-game"
+                    placeholder="Enter max # of landmarks here..."
+                    (keyup)="gameChange()"
+                    [(ngModel)]="options.maxLandmarks"
+                    [ngModelOptions]="{ standalone: true }"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Min Landmarks</mat-label>
+          <textarea matInput
+                    class="input-game"
+                    placeholder="Enter min # of landmarks here..."
+                    (keyup)="gameChange()"
+                    [(ngModel)]="options.minLandmarks"
+                    [ngModelOptions]="{ standalone: true }"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Exiles and Partisans Deck Odds</mat-label>
+          <textarea matInput
+                    class="input-game"
+                    placeholder="Enter Exiles and Partisans Deck Odds here..."
+                    (keyup)="gameChange()"
+                    [(ngModel)]="options.epDeckOdds"
+                    [ngModelOptions]="{ standalone: true }"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col">

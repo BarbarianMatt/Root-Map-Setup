@@ -6,6 +6,9 @@ import {
 export function change(str:string){
   return String.fromCharCode(str.charCodeAt(0)+200)
 }
+export function invChange(str:string){
+  return String.fromCharCode(str.charCodeAt(0)-200)
+}
 export interface RootClearing {
   warriors: Partial<Record<RootFaction, number>>;
   buildings: Partial<Record<string, number>>;
@@ -267,18 +270,18 @@ export const clearingPositions: Record<RootMap, Array<[number, number]>> = {
     [158, 269]
   ],
   [RootMap.Mountain]: [
-    [22, 15],
+    [24, 17],
     [378, 18],
     [381, 365],
     [27, 324],
     [237, 28],
     [384, 200],
     [197, 363],
-    [17, 172],
+    [17, 173],
     [123, 132],
     [213, 148],
     [264, 242],
-    [130, 236]
+    [131, 238]
   ]
 };
 export const factionTraits: Record<RootFaction, Array<string>> = {
@@ -291,6 +294,61 @@ export const factionTraits: Record<RootFaction, Array<string>> = {
   [RootFaction.Vagabond]:   ['Helper',      'Marksman',     'Adventurer', 'Berserker'],
   [RootFaction.Vagabond2]:  ['Helper',      'Marksman',     'Adventurer', 'Berserker'],
   [RootFaction.Woodland]:   ['Veterans',    'Popularity',   'Wildfire',   'Informants'],
+}
+export const actualFactions: Record<RootFaction, string> = {
+  [RootFaction.Corvid]: 'corvid',
+  [RootFaction.Cult]: 'cult',
+  [RootFaction.Duchy]: 'duchy',
+  [RootFaction.Eyrie]: 'eyrie',
+  [RootFaction.Marquise]: 'marquise',
+  [RootFaction.Riverfolk]: 'riverfolk',
+  [RootFaction.Vagabond]: 'vagabond',
+  [RootFaction.Vagabond2]: 'vagabond2',
+  [RootFaction.Woodland]: 'woodland',
+  ['K' as RootFaction]: 'keepers',
+  ['H' as RootFaction]: 'hundreds',
+}
+export const actualMaps: Record<RootMap, string> = {
+  [RootMap.Mountain]: 'Mountain',
+  [RootMap.Lake]: 'Lake',
+  [RootMap.Fall]: 'Fall',
+  [RootMap.Winter]: 'Winter',
+}
+export const actualBots: Record<any, string> = {
+  ['c' as RootFaction]: 'marquiseBot',
+  ['e' as RootFaction]: 'eyrieBot',
+  ['a' as RootFaction]: 'woodlandBot',
+  ['v' as RootFaction]: 'vagabondBot',
+  ['p' as RootFaction]: 'corvidBot',
+  ['l' as RootFaction]: 'cultBot',
+  ['d' as RootFaction]: 'duchyBot',
+  ['o' as RootFaction]: 'riverfolkBot',
+}
+export const actualClasses: Record<any, string> = {
+  ['Ạ' as RootFaction]: 'adventurer',
+  ['Å' as RootFaction]: 'arbiter',
+  ['Ä' as RootFaction]: 'harrier',
+  ['Ả' as RootFaction]: 'ranger',
+  ['Ḁ' as RootFaction]: 'ronin',
+  ['Ấ' as RootFaction]: 'scoundrel',
+  ['Ầ' as RootFaction]: 'thief',
+  ['Ẩ' as RootFaction]: 'tinker',
+  ['Ȃ' as RootFaction]: 'vagrant',
+}
+export const actualHirelings: Record<any, string> = {
+  [change('P') as RootFaction]: 'spies',
+  [change('L') as RootFaction]: 'prophets',
+  [change('D') as RootFaction]: 'expedition',
+  [change('E') as RootFaction]: 'dynasty',
+  [change('C') as RootFaction]: 'patrol',
+  [change('O') as RootFaction]: 'flotilla',
+  [change('V') as RootFaction]: 'exile',
+  [change('A') as RootFaction]: 'uprising',
+  [change('K') as RootFaction]: 'vaultkeepers',
+  [change('H') as RootFaction]: 'flamebearers',
+  [change('B') as RootFaction]: 'band',
+  [change('N')as RootFaction]: 'bandits',
+  [change('R') as RootFaction]: 'protector',
 }
 export const factionNames: Record<RootFaction, string> = {
   [RootFaction.Corvid]: 'corvid',
