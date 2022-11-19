@@ -182,7 +182,7 @@ mat-card {
   .container {
     padding: 1px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     height:100%;
   
@@ -269,7 +269,6 @@ mat-card {
     flex: 1;
     display: flex;
     justify-content: center;
-    background-color: #000;
 
     .map {
       position: relative;

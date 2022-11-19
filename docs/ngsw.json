@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1668814754182,
+  "timestamp": 1668818041217,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,12 +13,12 @@
       "urls": [
         "/2.ecbf31602d305fdb95d0.js",
         "/6.39f02fb7cd7366d0cbff.js",
-        "/7.102595bfb4f27c1a2ec3.js",
+        "/7.ae3298682b904b9f71cd.js",
         "/common.85ba9967e17be674c0e0.js",
         "/index.html",
-        "/main.38b6d2ca625c34e6ceba.js",
+        "/main.b037c8daa9efb16c2524.js",
         "/polyfills.32ac1633794279051b83.js",
-        "/runtime.978560ab73c39b5a3d37.js",
+        "/runtime.96d6850197bd0b3c2eb3.js",
         "/styles.5b94688dcd54d7bb5a65.css"
       ],
       "patterns": []
@@ -177,7 +177,7 @@
   "hashTable": {
     "/2.ecbf31602d305fdb95d0.js": "c3dc6636083829ca924e88f5c17ba9dbb7783db9",
     "/6.39f02fb7cd7366d0cbff.js": "4aa50b9ef62248ce9d4e0feaba972810ee1ce36a",
-    "/7.102595bfb4f27c1a2ec3.js": "eda482452dc7741cb2e4ae3e8c6fbee52acf932b",
+    "/7.ae3298682b904b9f71cd.js": "519ee4b760c9cc4c5e2b1e3615db1d442214fef6",
     "/assets/buildings/a_b_f.png": "b3c70309f24ceb97afa22a20d8041a20404cd793",
     "/assets/buildings/a_b_m.png": "578bb1d24becfc2f45d2c1256d648ea31f054202",
     "/assets/buildings/a_b_r.png": "9cc9b70aa9d45e6af478808515f639122780008b",
@@ -209,7 +209,7 @@
     "/assets/favicon/browserconfig.xml": "4946074a3f205674d50564d80f1683739308d6e0",
     "/assets/favicon/favicon-16x16.png": "b8632c18ab48bdcb02781e9839c5341bb7eae998",
     "/assets/favicon/favicon-32x32.png": "ec3165b55084de4a29725207339be2a5f0ff0d87",
-    "/assets/favicon/favicon.ico": "78b6624ffb5a5d90cb3d99db9b1e79c64a686314",
+    "/assets/favicon/favicon.ico": "d6f724d81877ece4206c6d9bf390a68b6ceb6df1",
     "/assets/favicon/favicon.png": "9472d90fe9cbeb23a58e3734c53cb49a81115387",
     "/assets/favicon/manifest.json": "c003da3c0bdbd78f095d948cc2782af47bb3975e",
     "/assets/favicon/mstile-150x150.png": "3be72f4feea4b1fc8b7719641651783972f3563b",
@@ -249,7 +249,7 @@
     "/assets/icon/faction-standard.png": "95ad535588706f2f2d396368badaca889f96489e",
     "/assets/icon/faction-thief.png": "046758290e1f1c563d8b3e12ef988a02adc39c81",
     "/assets/icon/faction-tinker.png": "2540639d957074708eb521b082f42922a77ca09f",
-    "/assets/icon/faction-undefined.png": "54328503cac22b6830ea650056bcd21e7076ecc5",
+    "/assets/icon/faction-undefined.png": "9472d90fe9cbeb23a58e3734c53cb49a81115387",
     "/assets/icon/faction-uprising.png": "ce0eea935431c5e386feff82a7ae917050f22dfd",
     "/assets/icon/faction-vagabond.png": "e537f51d4057ae1fb5f1652122223692194d2ca3",
     "/assets/icon/faction-vagabond2.png": "414250ddc67b33939bd182610c38e2c9d77765c3",
@@ -317,10 +317,10 @@
     "/assets/warrior/faction-warlordBot.png": "69fcbc3447b33bebaafa3f75c702ed57e4d193b0",
     "/assets/warrior/faction-woodlandBot.png": "2c550adc973fcf524c689edacdc9e1e002faf66c",
     "/common.85ba9967e17be674c0e0.js": "4c9e879b0d418b1a89e077ff9d34c44120763ed2",
-    "/index.html": "5f49a41181d22015e65d22189a52333a69c6b287",
-    "/main.38b6d2ca625c34e6ceba.js": "1b8ec9e407db95b05325407fa754af834cdfd2f8",
+    "/index.html": "3052656a367a1175315f5b5d6539c9369c96b572",
+    "/main.b037c8daa9efb16c2524.js": "e7e8cc81543b688e5bf4ab4de85e10103509d7de",
     "/polyfills.32ac1633794279051b83.js": "034ce1d5fcab7e2fb3bd164541685083a204934a",
-    "/runtime.978560ab73c39b5a3d37.js": "74fcb76f5fe2ecdc4ddb48a7d2362a607c1830f4",
+    "/runtime.96d6850197bd0b3c2eb3.js": "cfc94e8d3124836f8e36a215486d109a411b6ee3",
     "/styles.5b94688dcd54d7bb5a65.css": "f47c044d494569f10f09f669b7220148b07ffafe"
   },
   "navigationUrls": [

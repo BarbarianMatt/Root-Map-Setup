@@ -1,8 +1,11 @@
 .container {
-  position: absolute;
+  position:absolute;
+  
   .container-2{
     padding: 10px;
-
+    //width:min(1600px,100vw)
+    width:98vw;
+    min-width:500px;
   }
 }
 
