@@ -156,7 +156,7 @@ export class MapService {
         var found = false;
         var landmarkClearings=[];
         var loops1=0
-        while (!found && loops1<=1000000) {
+        while (!found && loops1<=100000) {
             landmarkClearings=[];
             found = true;
             land=shuffle(land);
@@ -173,8 +173,8 @@ export class MapService {
             }
             loops1+=1;
         }
-        if (loops1>=1000000){
-            console.log("looped too much");
+        if (loops1>=100000){
+            console.log("looped too much landmark");
         }
         //avaiable subnames for pieces are swrkfmcbe
         var ruinClears = space(1,12).filter(val => mapData[map][val]["ruins"])
@@ -399,7 +399,7 @@ export class MapService {
         var valid = false;
         var loops2 =0
         var pool=militant as any;
-        while (!valid && loops2<=1000000){
+        while (!valid && loops2<=100000){
             valid = true;
             pool=validFactionPool(factions,players,options);
             if (pool == 'error')
@@ -409,8 +409,9 @@ export class MapService {
                 valid = false
             loops2+=1;
         }
-        if (loops2>=1000000)
-            console.log('looped too much')
+        console.log(pool);
+        if (loops2>=100000)
+            console.log('looped too much finding faction')
         var totalMilitant = (militant.filter(value => pool.includes(value) || botsList.includes(value.toLowerCase()))).length;
         for (var i=0; i<pool.length;i++) {
             var str=pool[i]+": "+this.rootlogService.getFactionProperName(pool[i]);
@@ -435,7 +436,7 @@ export class MapService {
             output=out(output,str);
         }
         output+=temp;
-        if (loops1>=1000000 || loops2>=1000000)
+        if (loops1>=100000 || loops2>=100000)
             output='error';
         //output='Map: Winter\r\n\r\nDeck: Standard\r\n\r\nClearings: F1, M2, M3, M4, F5, R6, F7, R8, F9, R10, M11, R12\r\n\r\nM: Standard Deck\r\n\r\nc: Mechanical Marquise 2.0 (Iron will)\r\n\r\nē: Vault Keepers ▲\r\n\r\nė: Riverfolk Flotilla ▲\r\n\r\nĐ: Flame Bearers ▲\r\n\r\nP: Corvid Conspiracy\r\n\r\nD: Underground Duchy\r\n\r\nV: Vagabond\r\n\r\nẢ: Ranger\r\n\r\nM:b->8/b_s->9/b_w->11/b_r->12/t_f->7/t_c->12\r\n\r\nc:t_k->2/w->2+1+2+3+5+6+7+8+9+10+11+12/b_r->6/b_s->7/b_w->12\r\n\r\nē:b+2w->12\r\n\r\nė:w->10\r\n\r\nĐ:w->1+4\r\n'
         //console.log(output);
