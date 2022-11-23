@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { RootFaction, RootGame, RootMap, RootSuit} from '@seiyria/rootlog-parser';
 import * as _ from 'lodash';
+import { random } from 'lodash';
 import { RootlogService} from  './rootlog.service';
 import { mapData, RootClearing, forestPositions, pathPositions, change,invChange, factionTraits} from  './rootlog.static';
 
@@ -74,6 +75,8 @@ function validFactionPool(factionChoices: Array<string>,players: number, options
     remove(factions,'G');
     for (var i=0; i<Math.max(players+1,3);i++) {
         var f=choose(factions,1)[0];
+        if (f == 'G' && Math.random()<0.4)
+            f = choose(factions,1)[0];
         fac.push(f);
         factions.splice(factions.indexOf(f),1);
 
@@ -92,6 +95,11 @@ function remove(array: Array<any>, element: any){
         array.splice(array.indexOf(element),1)
     return;
 }
+function nonNumber(value: any){
+    if (isNaN(Number(value)))
+        return true
+    return false
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -99,15 +107,19 @@ function remove(array: Array<any>, element: any){
 export class MapService {
     constructor(private rootlogService: RootlogService) {}
     public mapSetup(options: any): string {
-        var players=parseInt(options.players);
-        var bots=parseInt(options.bots);
+        var players=Number(options.players);
+        var bots=Number(options.bots);
         var h=options.hirelings;
         var balanced=options.balanced;
         var output=''
         // randomly select map
         var maps = Object.keys(options.bannedMaps).filter(val=>!options.bannedMaps[val].banned);
-        if (maps.length===0)
+
+        if (maps.length===0 || nonNumber(options.players) || nonNumber(options.bots) || 
+            nonNumber(options.maxLandmarks)|| nonNumber(options.minLandmarks) || nonNumber(options.epDeckOdds) || 
+            players == 0 || Number(options.maxLandmarks)<Number(options.minLandmarks) || Number(options.epDeckOdds)>1){
             return 'error';
+        }
         //var maps = [RootMap.Fall];
         const map= choose(maps,1)[0] as RootMap;
         output=out(output,"Map: " + map);
@@ -144,8 +156,8 @@ export class MapService {
         //swrkfrmcbe is which prefexes you are allowed to use
         // tower, marker, city, ferry, forge, treetop
         var landmarks = ["t","t_m","t_c","t_f",'t_k','t_r'];
-        var maxLandmarks=parseInt(options.maxLandmarks);
-        var minLandmarks=parseInt(options.minLandmarks);
+        var maxLandmarks=Number(options.maxLandmarks);
+        var minLandmarks=Number(options.minLandmarks);
         var mean = (maxLandmarks+minLandmarks)/2
         var numl=Math.round(Math.max(Math.min(getNormallyDistributedRandomNumber(mean+0.1,mean*0.557),maxLandmarks),minLandmarks));
         var land = choose(landmarks,numl);
@@ -399,6 +411,7 @@ export class MapService {
         var valid = false;
         var loops2 =0
         var pool=militant as any;
+        //var vaga=0
         while (!valid && loops2<=100000){
             valid = true;
             pool=validFactionPool(factions,players,options);
@@ -408,8 +421,11 @@ export class MapService {
             if (totalMilitant<1 || (players==2 && totalMilitant<3))
                 valid = false
             loops2+=1;
+            //if (pool.includes('G'))
+                //vaga+=1;
         }
-        console.log(pool);
+        //console.log(vaga/100000*100+'%')
+        //console.log(pool);
         if (loops2>=100000)
             console.log('looped too much finding faction')
         var totalMilitant = (militant.filter(value => pool.includes(value) || botsList.includes(value.toLowerCase()))).length;
