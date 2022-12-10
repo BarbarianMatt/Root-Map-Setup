@@ -53,6 +53,9 @@ export class InputComponent {
       'maxLandmarks': 2,
       'minLandmarks': 0,
       'epDeckOdds': 0.9,
+      'hirelingsNum' : 3,
+      'forcedDemoted': false,
+      'forcedPromoted': false,
     }
     return Default;
   }

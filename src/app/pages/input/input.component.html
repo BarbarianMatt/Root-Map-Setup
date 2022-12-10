@@ -118,6 +118,17 @@
         </mat-checkbox>
       </div>   
     </div>
+    <div class="center">
+      <h1>Other</h1>
+    </div>
+    <div class="row-check"> 
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.forcedDemoted"> Force Demote Hirelings</mat-checkbox>
+      </div>
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.forcedPromoted"> Force Promote Hirelings</mat-checkbox>
+      </div>   
+    </div>
     <div class="row">
       <div class="col">
         <mat-form-field appearance="outline" color="accent">
@@ -140,6 +151,19 @@
                     placeholder="Enter min # of landmarks here..."
                     (keyup)="gameChange()"
                     [(ngModel)]="options.minLandmarks"
+                    [ngModelOptions]="{ standalone: true }"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Hirelings</mat-label>
+          <textarea matInput
+                    class="input-game"
+                    placeholder="Enter # of Hirelings here..."
+                    (keyup)="gameChange()"
+                    [(ngModel)]="options.hirelingsNum"
                     [ngModelOptions]="{ standalone: true }"></textarea>
         </mat-form-field>
       </div>

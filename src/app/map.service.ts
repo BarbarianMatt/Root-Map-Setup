@@ -110,7 +110,11 @@ export class MapService {
         var players=Number(options.players);
         var bots=Number(options.bots);
         var h=options.hirelings;
+        var hirelingsNum=Number(options.hirelingsNum);
         var balanced=options.balanced;
+        var totalPromoted = options.forcedPromoted ? hirelingsNum : (options.forcedDemoted ? 0 : hirelingsNum+2-players-bots);
+        if (options.forcedPromoted && options.forcedDemoted)
+            h = false;
         var output=''
         // randomly select map
         var maps = Object.keys(options.bannedMaps).filter(val=>!options.bannedMaps[val].banned);
@@ -158,8 +162,9 @@ export class MapService {
         var landmarks = ["t","t_m","t_c","t_f",'t_k','t_r'];
         var maxLandmarks=Number(options.maxLandmarks);
         var minLandmarks=Number(options.minLandmarks);
-        var mean = (maxLandmarks+minLandmarks)/2
-        var numl=Math.round(Math.max(Math.min(getNormallyDistributedRandomNumber(mean+0.1,mean*0.557),maxLandmarks),minLandmarks));
+        var mean = (maxLandmarks+minLandmarks)/2;
+        var r =getNormallyDistributedRandomNumber(mean+0.0772,mean*0.557);
+        var numl=Math.round(Math.max(Math.min(r,maxLandmarks),minLandmarks));
         var land = choose(landmarks,numl);
         var r = Math.random();
         if ((map=='Mountain' && r<0.4 && !land.includes('t')) || (map == 'Lake' && r<0.4 && !land.includes('t_f')))
@@ -307,7 +312,7 @@ export class MapService {
         // band, bandits, dynasty, exile, expedition, flamebearers, flotilla, patrol, prophets, protector, spies, uprising, vaultkeepers
         var noneTypeHirelings=['B','N','R'];
         var possibleHirelings = factions.filter(val=>val!=='G' && !options.bannedHirelings[change(val)].banned).concat(noneTypeHirelings);
-        var hirelings = choose(possibleHirelings, (h ? 3: 0));
+        var hirelings = choose(possibleHirelings, (h ? hirelingsNum: 0));
         for (var i=0; i<hirelings.length;i++){
             var hire=hirelings[i];
             if (factions.includes(hire) && (factions.length- (hire == 'V' ? 2 : 1))<players+1)
@@ -316,11 +321,11 @@ export class MapService {
             if (hire == 'V')
                 remove(factions,'G');
             hirelings[i]=change(hire);
-            output=out(output,hirelings[i]+": "+this.rootlogService.getFactionProperName(hirelings[i]).split(',')[i+players+bots>4 ? 1 : 0]+ ' '+ (i+players+bots>4 ? '▼' : '▲'));
+            output=out(output,hirelings[i]+": "+this.rootlogService.getFactionProperName(hirelings[i]).split(',')[i<totalPromoted ? 0 : 1]+ ' '+ (i<totalPromoted ? '▲' : '▼'));
         }
 
         // setup hirelings
-        for (var i=0; i<hirelings.length && i<5-players-bots; i++){
+        for (var i=0; i<hirelings.length && i<totalPromoted; i++){
             var hireling=hirelings[i];
             if (hireling == change('K')){
                 var clear = choose(space(1,12).filter(val => mapData[map][val]["slots"]>0 && val!=keep),1)[0];
