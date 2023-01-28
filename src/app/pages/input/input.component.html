@@ -127,7 +127,22 @@
       </div>
       <div class="row-col">
         <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.forcedPromoted"> Force Promote Hirelings</mat-checkbox>
-      </div>   
+      </div>
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.contrastiveHirelings"> Remove Hireling Exclusivity</mat-checkbox>
+      </div>
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.alternativeTreetop"> Alternative Treetop Setup</mat-checkbox>
+      </div>
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.ferryMapPriority"> Ferry Priority on Lake</mat-checkbox>
+      </div>
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.towerMapPriority"> Tower Priority on Mountain</mat-checkbox>
+      </div>
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.passLandmarkPriority"> Pass Priority on Mountain</mat-checkbox>
+      </div>
     </div>
     <div class="row">
       <div class="col">

@@ -38,7 +38,7 @@ function getNormallyDistributedRandomNumber(mean: number, stddev: number) {
     
     return z0 * stddev + mean;
 }
-function validLandmark(landmark: string, clearing: number, used: Array<number>, map: RootMap){
+function validLandmark(landmark: string, clearing: number, used: Array<number>, map: RootMap,options:any){
     var clearingData=mapData[map][clearing];
     if (used.includes(clearing)){
         return false;
@@ -55,8 +55,11 @@ function validLandmark(landmark: string, clearing: number, used: Array<number>, 
         return false;
     else if (landmark == "t_f" && !(clearingData["river"]))
         return false;
-    else if (landmark == "t_r" && !(!clearingData["edge"] && clearingData["adjacent"].length>2)){
-        return false;
+    else if (landmark == "t_r"){
+        if ((options.alternativeTreetop && !(!clearingData["edge"] && clearingData["adjacent"].length>2)) || 
+            (!options.alternativeTreetop && !clearingData["corner"] )){
+                return false;
+        }
     }
         
     return true;
@@ -167,9 +170,10 @@ export class MapService {
         var numl=Math.round(Math.max(Math.min(r,maxLandmarks),minLandmarks));
         var land = choose(landmarks,numl);
         var r = Math.random();
-        if ((map=='Mountain' && r<0.4 && !land.includes('t')) || (map == 'Lake' && r<0.4 && !land.includes('t_f')))
-            land[0] = map == 'Mountain' ? 't' : 't_f';
-        
+        if (map == 'Lake' && r<0.4 && !land.includes('t_f') && options.ferryMapPriority)
+            land[0] = 't_f';
+        if (map=='Mountain' && r<0.4 && !land.includes('t') && options.towerMapPriority)
+            land[0] = 't';
         var found = false;
         var landmarkClearings=[];
         var loops1=0
@@ -181,9 +185,9 @@ export class MapService {
             for (var i=0;i<land.length;i++){
                 var clearing=clears[i];
                 var r = Math.random();
-                if (map == 'Mountain' && r<0.2)
+                if (map == 'Mountain' && r<0.2 && options.passLandmarkPriority)
                     clearing=10;
-                if (!validLandmark(land[i],clearing,landmarkClearings,map)){
+                if (!validLandmark(land[i],clearing,landmarkClearings,map,options)){
                     found=false;
                 }
                 landmarkClearings.push(clearing);
@@ -310,13 +314,14 @@ export class MapService {
 
         // randomly select hirelings
         // band, bandits, dynasty, exile, expedition, flamebearers, flotilla, patrol, prophets, protector, spies, uprising, vaultkeepers
+        var hirelingsPool=options.contrastiveHirelings ? ['P','L','D','E','C','O','V','A','K','H','G'] : factions;
         var noneTypeHirelings=['B','N','R'].filter(val=>!options.bannedHirelings[change(val)].banned);
-        var possibleHirelings = factions.filter(val=>val!=='G' && !options.bannedHirelings[change(val)].banned).concat(noneTypeHirelings);
+        var possibleHirelings = hirelingsPool.filter(val=>val!=='G' && !options.bannedHirelings[change(val)].banned).concat(noneTypeHirelings);
         var potentialhirelings = choose(possibleHirelings, (h ? hirelingsNum: 0));
         var hirelings=[]
         for (var i=0; i<potentialhirelings.length;i++){
             var hire=potentialhirelings[i];
-            if (factions.includes(hire) && (factions.length- (hire == 'V' ? 2 : 1))<players+1){
+            if (hirelingsPool.includes(hire) && (hirelingsPool.length- (hire == 'V' ? 2 : 1))<players+1 && !options.contrastiveHirelings){
                 var noneTypesNotInList=noneTypeHirelings.filter(val=>!potentialhirelings.includes(val));
                 if (noneTypesNotInList.length==0)
                     return 'errorBannedNumsTooHigh';
@@ -325,13 +330,15 @@ export class MapService {
                 console.log(hire);
                 console.log(hirelings)
             }
-            remove(factions,hire);
+            remove(hirelingsPool,hire);
             if (hire == 'V')
-                remove(factions,'G');
+                remove(hirelingsPool,'G');
             hirelings[i]=change(hire);
             output=out(output,hirelings[i]+": "+this.rootlogService.getFactionProperName(hirelings[i]).split(',')[i<totalPromoted ? 0 : 1]+ ' '+ (i<totalPromoted ? '▲' : '▼'));
         }
-        
+        if (!options.contrastiveHirelings) {
+            factions=hirelingsPool;
+        }
 
         // setup hirelings
         for (var i=0; i<hirelings.length && i<totalPromoted; i++){

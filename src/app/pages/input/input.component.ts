@@ -56,6 +56,11 @@ export class InputComponent {
       'hirelingsNum' : 3,
       'forcedDemoted': false,
       'forcedPromoted': false,
+      'contrastiveHirelings': false,
+      'alternativeTreetop': false,
+      'ferryMapPriority': false,
+      'towerMapPriority': false,
+      'passLandmarkPriority': false,
     }
     return Default;
   }
