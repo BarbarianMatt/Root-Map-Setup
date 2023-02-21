@@ -307,6 +307,12 @@ export const actualFactions: Record<RootFaction, string> = {
   [RootFaction.Woodland]: 'woodland',
   ['K' as RootFaction]: 'keepers',
   ['H' as RootFaction]: 'hundreds',
+  ['B' as RootFaction]: 'bones',
+  ['F' as RootFaction]: 'frogs',
+  ['T' as RootFaction]: 'oldman',
+  ['Y' as RootFaction]: 'order',
+  ['N' as RootFaction]: 'colonies',
+  ['W' as RootFaction]: 'winged',
 }
 export const actualMaps: Record<RootMap, string> = {
   [RootMap.Mountain]: 'Mountain',
@@ -399,6 +405,12 @@ export const factionNames: Record<RootFaction, string> = {
   [change('B') as RootFaction]: 'band',
   [change('N')as RootFaction]: 'bandits',
   [change('R') as RootFaction]: 'protector',
+  ['B' as RootFaction]: 'bones',
+  ['F' as RootFaction]: 'frogs',
+  ['T' as RootFaction]: 'oldman',
+  ['Y' as RootFaction]: 'order',
+  ['N' as RootFaction]: 'colonies',
+  ['W' as RootFaction]: 'winged',
 };
 
 export const factionProperNames: Record<RootFaction, string> = {
@@ -449,6 +461,12 @@ export const factionProperNames: Record<RootFaction, string> = {
   [change('B') as RootFaction]: 'Popular Band,Street Band',
   [change('N') as RootFaction]: 'Highway Bandits,Bandit Gangs',
   [change('R') as RootFaction]: 'Furious Protector,Stoic Protector',
+  ['B' as RootFaction]: 'Bone Patrol',
+  ['F' as RootFaction]: 'Croakers Coven',
+  ['T' as RootFaction]: 'Old Man Tinker',
+  ['Y' as RootFaction]: 'Order of the Forest',
+  ['N' as RootFaction]: 'Twelve Colonies',
+  ['W' as RootFaction]: 'Winged Menace',
 };
 
 export const suitNames: Record<RootSuit, string> = {

@@ -4,7 +4,7 @@ import { RootFaction, RootGame, RootMap, RootSuit} from '@seiyria/rootlog-parser
 import * as _ from 'lodash';
 import { random } from 'lodash';
 import { RootlogService} from  './rootlog.service';
-import { mapData, RootClearing, forestPositions, pathPositions, change,invChange, factionTraits} from  './rootlog.static';
+import { mapData, RootClearing, forestPositions, pathPositions, change,invChange, factionTraits, actualFactions} from  './rootlog.static';
 
 function choose(array: Array<any>, n: number) {
     var shuffled=shuffle(array);
@@ -230,6 +230,8 @@ export class MapService {
 
         // variables
         var factions=['P','L','D','E','C','O','V','A','K','H','G'];
+        factions = Object.keys(actualFactions);
+        console.log(factions);
         var bot=['c','e','a','v','p','d','o','l'];
         var possibleBots = bot.filter(val=>!options.bannedBots[val].banned);
         var vagabondBotClasses = ['å','ả','ấ','ầ','ẩ','ȃ'];
@@ -249,7 +251,6 @@ export class MapService {
         //setup bots
         var corners=space(1,12).filter(val => mapData[map][val]["corner"]);
         var keep=0;
-        
         if (botsList.includes('c')){
             var buildings=shuffle(['b_s','b_r','b_w']);
             var corner = choose(corners,1)[0];
@@ -311,11 +312,11 @@ export class MapService {
             str+=space(1,12).filter(val => suits[val-1].includes('R') && val!=keep).splice(-1)[0];
             temp=out(temp,str);
         }
-
         // randomly select hirelings
         // band, bandits, dynasty, exile, expedition, flamebearers, flotilla, patrol, prophets, protector, spies, uprising, vaultkeepers
         var hirelingsPool=options.contrastiveHirelings ? ['P','L','D','E','C','O','V','A','K','H','G'] : factions;
         var noneTypeHirelings=['B','N','R'].filter(val=>!options.bannedHirelings[change(val)].banned);
+        hirelingsPool=['P','L','D','E','C','O','V','A','K','H','G'];
         var possibleHirelings = hirelingsPool.filter(val=>val!=='G' && !options.bannedHirelings[change(val)].banned).concat(noneTypeHirelings);
         var potentialhirelings = choose(possibleHirelings, (h ? hirelingsNum: 0));
         var hirelings=[]
@@ -336,10 +337,10 @@ export class MapService {
             hirelings[i]=change(hire);
             output=out(output,hirelings[i]+": "+this.rootlogService.getFactionProperName(hirelings[i]).split(',')[i<totalPromoted ? 0 : 1]+ ' '+ (i<totalPromoted ? '▲' : '▼'));
         }
-        if (!options.contrastiveHirelings) {
+        /*if (!options.contrastiveHirelings) {
             factions=hirelingsPool;
-        }
-
+        }*/
+        
         // setup hirelings
         for (var i=0; i<hirelings.length && i<totalPromoted; i++){
             var hireling=hirelings[i];
@@ -427,7 +428,8 @@ export class MapService {
         }
 
         // randomly select factions
-        var militant = ['D','E','C','K','H'];
+        var militant = ['D','E','C','K','H','W'];
+        console.log(options.bannedFactions);
         factions=factions.filter(val=>!options.bannedFactions[val].banned);
         var valid = false;
         var loops2 =0

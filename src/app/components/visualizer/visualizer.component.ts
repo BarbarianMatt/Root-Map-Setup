@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RootFaction, RootGame, RootMap, RootSuit } from '@seiyria/rootlog-parser';
 import { interval } from 'rxjs';
 import { RootlogService } from '../../rootlog.service';
-import { FormattedAction, RootClearing, RootGameState, change } from '../../rootlog.static';
+import { FormattedAction, RootClearing, RootGameState, change, actualFactions,actualClasses } from '../../rootlog.static';
 
 @Component({
   selector: 'app-visualizer',
@@ -205,7 +205,8 @@ export class VisualizerComponent implements OnInit {
     return clearing;
   }
   getPlayers(game: RootGame): KeyValue<RootFaction, string>[] {
-    var allowed= ['M','P','L','D','E','C','O','V','A','G','K','H','Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'];
+    var allowed= ['M','P','L','D','E','C','O','V','A','G','K','H','Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ','B'];
+    allowed = Object.keys(actualFactions).concat(Object.keys(actualClasses));
     var players =  JSON.parse(JSON.stringify(game.players));
     Object.keys(players).filter(key => !allowed.includes(key)).forEach(key => delete players[key]);
     const numPlayers = Object.values(players).length;

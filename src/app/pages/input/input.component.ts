@@ -57,10 +57,10 @@ export class InputComponent {
       'forcedDemoted': false,
       'forcedPromoted': false,
       'contrastiveHirelings': false,
-      'alternativeTreetop': false,
-      'ferryMapPriority': false,
-      'towerMapPriority': false,
-      'passLandmarkPriority': false,
+      'alternativeTreetop': true,
+      'ferryMapPriority': true,
+      'towerMapPriority': true,
+      'passLandmarkPriority': true,
     }
     return Default;
   }
@@ -106,6 +106,7 @@ export class InputComponent {
       element.properName=this.rootlogService.getFactionProperName(key);
       factions[key]=element;
     }
+    console.log(factions);
     return factions;
   }
   getBots(): any {
