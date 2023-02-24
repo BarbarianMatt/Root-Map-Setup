@@ -12,20 +12,26 @@ import { LocalStorageService } from '../../local-storage.service';
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent {
-  options=this.localGet(this.default());
+  //options=this.localGet(this.default());
+  options=this.default();
   game = this.mapService.mapSetup(this.options);
   validRootlog = true;
 
   gameUrl = '';
   validRootlogUrl = false;
   constructor(private mapService: MapService, private rootlogService: RootlogService, private localStorageService: LocalStorageService ) {}
-  localGet(options: any): any{
+
+  localGet(options: any): any {
     const updated=options;
     for (const [key, value] of Object.entries(options)) {
       var element=this.localStorageService.getItem(key) as any;
       if (element !== null && element !== 'undefined' && element !== ''){
         updated[key]=element;
       }
+      /*else {
+        this.options=this.default();
+        break;
+      }*/
     }
     return updated;
   }
