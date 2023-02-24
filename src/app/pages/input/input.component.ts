@@ -12,8 +12,8 @@ import { LocalStorageService } from '../../local-storage.service';
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent {
-  //options=this.localGet(this.default());
-  options=this.default();
+  options=this.localGet(this.default());
+  //options=this.default();
   game = this.mapService.mapSetup(this.options);
   validRootlog = true;
 
