@@ -4,7 +4,7 @@ import { RootFaction, RootGame, RootMap, RootSuit} from '@seiyria/rootlog-parser
 import * as _ from 'lodash';
 import { random } from 'lodash';
 import { RootlogService} from  './rootlog.service';
-import { mapData, RootClearing, forestPositions, pathPositions, change,invChange, factionTraits, actualFactions} from  './rootlog.static';
+import { mapData, RootClearing, forestPositions, pathPositions, change,invChange, factionTraits, actualFactions, outsidersFactions} from  './rootlog.static';
 
 function choose(array: Array<any>, n: number) {
     var shuffled=shuffle(array);
@@ -67,6 +67,12 @@ function validLandmark(landmark: string, clearing: number, used: Array<number>, 
 function clone(obj: any){
     return JSON.parse(JSON.stringify(obj));
 }
+function getFactions(options:any){
+    var factions = Object.keys(actualFactions);
+    if (options.outsiders)
+        factions = factions.concat(Object.keys(outsidersFactions));
+    return factions;
+}
 function validFactionPool(factionChoices: Array<string>,players: number, options: any){
     //adventurer,arbiter,harrier,ranger,ronin,scoundrel,thief,tinker,vagrant
     var vagabondClasses = ['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'];
@@ -94,9 +100,12 @@ function validFactionPool(factionChoices: Array<string>,players: number, options
     return fac;
 }
 function remove(array: Array<any>, element: any){
-    if (array.includes(element))
+    if (array.includes(element)){
         array.splice(array.indexOf(element),1)
-    return;
+        return true;
+    }
+    return false
+    
 }
 function nonNumber(value: any){
     if (isNaN(Number(value)))
@@ -177,7 +186,7 @@ export class MapService {
         var found = false;
         var landmarkClearings=[];
         var loops1=0
-        while (!found && loops1<=100000) {
+        while (!found && loops1<=100000&& numl>0) {
             landmarkClearings=[];
             found = true;
             land=shuffle(land);
@@ -224,14 +233,13 @@ export class MapService {
                         str+='Z%f/Z%f/Z%c/Z%c/'
                 }
             }
-            str=str.slice(0,-1);
-            temp=out(temp,str);
+            
         }
-
+        str=str.slice(0,-1);
+        temp=out(temp,str);
         // variables
-        var factions=['P','L','D','E','C','O','V','A','K','H','G'];
-        factions = Object.keys(actualFactions);
-        console.log(factions);
+        var factions=getFactions(options);
+        
         var bot=['c','e','a','v','p','d','o','l'];
         var possibleBots = bot.filter(val=>!options.bannedBots[val].banned);
         var vagabondBotClasses = ['å','ả','ấ','ầ','ẩ','ȃ'];
@@ -314,26 +322,26 @@ export class MapService {
         }
         // randomly select hirelings
         // band, bandits, dynasty, exile, expedition, flamebearers, flotilla, patrol, prophets, protector, spies, uprising, vaultkeepers
-        var hirelingsPool=options.contrastiveHirelings ? ['P','L','D','E','C','O','V','A','K','H','G'] : factions;
+        var hirelingsPool=['P','L','D','E','C','O','V','A','K','H'].filter(val=>!botsList.includes(val.toLowerCase()));
         var noneTypeHirelings=['B','N','R'].filter(val=>!options.bannedHirelings[change(val)].banned);
-        hirelingsPool=['P','L','D','E','C','O','V','A','K','H','G'];
-        var possibleHirelings = hirelingsPool.filter(val=>val!=='G' && !options.bannedHirelings[change(val)].banned).concat(noneTypeHirelings);
+        var possibleHirelings = hirelingsPool.filter(val=>!options.bannedHirelings[change(val)].banned).concat(noneTypeHirelings);
         var potentialhirelings = choose(possibleHirelings, (h ? hirelingsNum: 0));
         var hirelings=[]
         for (var i=0; i<potentialhirelings.length;i++){
             var hire=potentialhirelings[i];
-            if (hirelingsPool.includes(hire) && (hirelingsPool.length- (hire == 'V' ? 2 : 1))<players+1 && !options.contrastiveHirelings){
+            /*if (hirelingsPool.includes(hire) && (hirelingsPool.length- (hire == 'V' ? 2 : 1))<players+1 && !options.contrastiveHirelings){
                 var noneTypesNotInList=noneTypeHirelings.filter(val=>!potentialhirelings.includes(val));
                 if (noneTypesNotInList.length==0)
                     return 'errorBannedNumsTooHigh';
                 hire=choose(noneTypesNotInList,1)[0];
                 potentialhirelings[i]=hire
-                console.log(hire);
-                console.log(hirelings)
-            }
+            }*/
             remove(hirelingsPool,hire);
             if (hire == 'V')
                 remove(hirelingsPool,'G');
+            if (!options.contrastiveHirelings)
+                if (!remove(factions,hire) && !noneTypeHirelings.includes(hire))
+                    console.log("error: tried to remove " + hire+ " due to hireling, but it is not there in factions")
             hirelings[i]=change(hire);
             output=out(output,hirelings[i]+": "+this.rootlogService.getFactionProperName(hirelings[i]).split(',')[i<totalPromoted ? 0 : 1]+ ' '+ (i<totalPromoted ? '▲' : '▼'));
         }
@@ -428,13 +436,12 @@ export class MapService {
         }
 
         // randomly select factions
-        var militant = ['D','E','C','K','H','W'];
-        console.log(options.bannedFactions);
+        var militant = ['D','E','C','K','H'];
+        militant = options.players>3 ? militant.concat('N') : militant;
         factions=factions.filter(val=>!options.bannedFactions[val].banned);
         var valid = false;
         var loops2 =0
         var pool=militant as any;
-        //var vaga=0
         while (!valid && loops2<=100000){
             valid = true;
             pool=validFactionPool(factions,players,options);
@@ -454,9 +461,14 @@ export class MapService {
         var totalMilitant = (militant.filter(value => pool.includes(value) || botsList.includes(value.toLowerCase()))).length;
         for (var i=0; i<pool.length;i++) {
             var str=pool[i]+": "+this.rootlogService.getFactionProperName(pool[i]);
-            if(totalMilitant<=1){
+            if((totalMilitant<=1 && options.looseLock)){
                 if ((i==pool.length-3 && (pool[i]=='V' || pool[i]=='G') &&  militant.includes(pool[i+2])) ||
                     (i==pool.length-2 && !militant.includes(pool[i]) && !['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i]) && (militant.includes(pool[i+1]) || ['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i+1]))) ||
+                    (i==pool.length-1 && !militant.includes(pool[i]) && !['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i])))
+                    str+=' 🔒'
+            }
+            else if (!options.looseLock){
+                if ((i==pool.length-2 && !militant.includes(pool[i]) && !['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i]) && (['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i+1]))) ||
                     (i==pool.length-1 && !militant.includes(pool[i]) && !['Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ'].includes(pool[i])))
                     str+=' 🔒'
             }

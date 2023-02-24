@@ -72,6 +72,9 @@
       <mat-checkbox (change)="gameChange()" [(ngModel)]="options.balanced"> Balanced Clearings?</mat-checkbox>
     </div>
     <div class="row-col">
+      <mat-checkbox (change)="gameChange()" [(ngModel)]="options.outsiders"> Outsiders Expansion?</mat-checkbox>
+    </div>
+    <div class="row-col">
       <mat-checkbox (change)="gameChange()" [(ngModel)]="options.extra"> Extra Settings?</mat-checkbox>
     </div>
   </div>
@@ -80,7 +83,7 @@
       <h1 (click)="all('bannedFactions')">Banned Factions</h1>
     </div>
     <div class="row-check"> 
-      <div class="row-col" *ngFor="let faction of keys(getFactions()); let index = index">
+      <div class="row-col" *ngFor="let faction of keys(getFactions(options.outsiders)); let index = index">
         <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.bannedFactions[faction].banned"> {{options.bannedFactions[faction].properName}}</mat-checkbox>
       </div> 
     </div>
@@ -142,6 +145,9 @@
       </div>
       <div class="row-col">
         <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.passLandmarkPriority"> Pass Priority on Mountain</mat-checkbox>
+      </div>
+      <div class="row-col">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.looseLock"> Loosen Lock Restrictions</mat-checkbox>
       </div>
     </div>
     <div class="row">

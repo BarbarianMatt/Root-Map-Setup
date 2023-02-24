@@ -307,6 +307,8 @@ export const actualFactions: Record<RootFaction, string> = {
   [RootFaction.Woodland]: 'woodland',
   ['K' as RootFaction]: 'keepers',
   ['H' as RootFaction]: 'hundreds',
+}
+export const outsidersFactions: Record<any, string> = {
   ['B' as RootFaction]: 'bones',
   ['F' as RootFaction]: 'frogs',
   ['T' as RootFaction]: 'oldman',
@@ -314,6 +316,7 @@ export const actualFactions: Record<RootFaction, string> = {
   ['N' as RootFaction]: 'colonies',
   ['W' as RootFaction]: 'winged',
 }
+
 export const actualMaps: Record<RootMap, string> = {
   [RootMap.Mountain]: 'Mountain',
   [RootMap.Lake]: 'Lake',

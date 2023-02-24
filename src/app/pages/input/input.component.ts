@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { compressToEncodedURIComponent } from 'lz-string';
 
 import { RootlogService } from '../../rootlog.service';
-import { actualFactions,actualBots,actualClasses,actualHirelings, actualMaps} from '../../rootlog.static';
+import { actualFactions,actualBots,actualClasses,actualHirelings, actualMaps, outsidersFactions} from '../../rootlog.static';
 import { MapService } from '../../map.service';
 import { LocalStorageService } from '../../local-storage.service';
 
@@ -45,7 +45,8 @@ export class InputComponent {
       'reset': false,
       'hirelings': false,
       'balanced': false,
-      'bannedFactions': this.getFactions(),
+      'outsiders': false,
+      'bannedFactions': this.getFactions(true),
       'bannedBots': this.getBots(),
       'bannedClasses': this.getClasses(),
       'bannedHirelings': this.getHirelings(),
@@ -61,6 +62,7 @@ export class InputComponent {
       'ferryMapPriority': true,
       'towerMapPriority': true,
       'passLandmarkPriority': true,
+      'looseLock': true,
     }
     return Default;
   }
@@ -97,16 +99,19 @@ export class InputComponent {
     }
     return maps;
   }
-  getFactions(): any {
+  getFactions(outsiders:boolean): any {
     var factions={} as any;
-    for (const [key, value] of Object.entries(actualFactions)) {
+    var listFactions = Object.keys(actualFactions);
+    if (outsiders){
+      listFactions=listFactions.concat(Object.keys(outsidersFactions));
+    }
+    for (const [key, value] of listFactions) {
       var element={} as any;
       element.name=value;
       element.banned=false;
       element.properName=this.rootlogService.getFactionProperName(key);
       factions[key]=element;
     }
-    console.log(factions);
     return factions;
   }
   getBots(): any {

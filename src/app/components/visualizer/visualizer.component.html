@@ -42,7 +42,7 @@
                   *ngFor="let building of getBuildings(clearing)"
                   [class.negative]="building.isNegative"
                   (click)="rootlogService.lootRuin(building,clearing)" 
-                  [src]="'assets/buildings/' + getBuildingName(building,clearing) + '.png'" />
+                  [src]="'assets/buildings/' + replaceCave(getBuildingName(building,clearing),game) + '.png'" />
                   
                  
           </div>
@@ -142,7 +142,7 @@
             <img class="map-component building"
                   *ngFor="let building of getBuildings(state.clearings[i + 1])"
                   [class.hidden]="building.isNegative"
-                  [src]="'assets/buildings/' + building.name + '.png'" />
+                  [src]="'assets/buildings/' + replaceCave(building.name,game) + '.png'" />
 
             <img class="map-component token"
                   *ngFor="let token of getTokens(state.clearings[i + 1])"

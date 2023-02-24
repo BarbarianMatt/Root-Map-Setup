@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RootFaction, RootGame, RootMap, RootSuit } from '@seiyria/rootlog-parser';
 import { interval } from 'rxjs';
 import { RootlogService } from '../../rootlog.service';
-import { FormattedAction, RootClearing, RootGameState, change, actualFactions,actualClasses } from '../../rootlog.static';
+import { FormattedAction, RootClearing, RootGameState, change, actualFactions,actualClasses, outsidersFactions } from '../../rootlog.static';
 
 @Component({
   selector: 'app-visualizer',
@@ -173,6 +173,13 @@ export class VisualizerComponent implements OnInit {
     return building.name;
   }
 
+  replaceCave(name: any,game:RootGame): string {
+    var players = Object.keys(JSON.parse(JSON.stringify(game.players)));
+    if ((name == 'm_b' || name == 'm_b_r' || name == 'm_b_s' || name == 'm_b_w') && players.includes('W'))
+      return 'cave';
+    return name;
+  }
+
   getTokens(clearing: RootClearing): any {
     //return this.getCardboard(clearing.tokens);
     var tokens = JSON.parse(JSON.stringify(clearing.tokens));
@@ -205,8 +212,9 @@ export class VisualizerComponent implements OnInit {
     return clearing;
   }
   getPlayers(game: RootGame): KeyValue<RootFaction, string>[] {
-    var allowed= ['M','P','L','D','E','C','O','V','A','G','K','H','Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ','B'];
-    allowed = Object.keys(actualFactions).concat(Object.keys(actualClasses));
+    //var allowed= ['M','P','L','D','E','C','O','V','A','G','K','H','Ạ','Å','Ä','Ả','Ḁ','Ấ','Ầ','Ẩ','Ȃ','B'];
+
+    var allowed = Object.keys(actualFactions).concat(Object.keys(actualClasses)).concat(Object.keys(outsidersFactions)).concat('M');
     var players =  JSON.parse(JSON.stringify(game.players));
     Object.keys(players).filter(key => !allowed.includes(key)).forEach(key => delete players[key]);
     const numPlayers = Object.values(players).length;
