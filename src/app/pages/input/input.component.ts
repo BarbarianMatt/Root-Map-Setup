@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { compressToEncodedURIComponent } from 'lz-string';
 
 import { RootlogService } from '../../rootlog.service';
-import { actualFactions,actualBots,actualClasses,actualHirelings, actualMaps, outsidersFactions} from '../../rootlog.static';
+import { actualFactions,actualBots,actualClasses,actualHirelings, actualMaps, outsidersFactions, actualLandmarks} from '../../rootlog.static';
 import { MapService } from '../../map.service';
 import { LocalStorageService } from '../../local-storage.service';
 
@@ -57,6 +57,7 @@ export class InputComponent {
       'bannedClasses': this.getClasses(),
       'bannedHirelings': this.getHirelings(),
       'bannedMaps': this.getMaps(),
+      'bannedLandmarks': this.getLandmarks(),
       'maxLandmarks': 2,
       'minLandmarks': 0,
       'epDeckOdds': 0.9,
@@ -104,6 +105,16 @@ export class InputComponent {
       maps[key]=element;
     }
     return maps;
+  }
+  getLandmarks(): any {
+    var landmarks={} as any;
+    for (const [key, value] of Object.entries(actualLandmarks)) {
+      var element={} as any;
+      element.banned=false;
+      element.properName=value;
+      landmarks[key]=element;
+    }
+    return landmarks;
   }
   getFactions(outsiders:boolean): any {
     var factions={} as any;

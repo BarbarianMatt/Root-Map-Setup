@@ -323,6 +323,14 @@ export const actualMaps: Record<RootMap, string> = {
   [RootMap.Fall]: 'Fall',
   [RootMap.Winter]: 'Winter',
 }
+export const actualLandmarks: Record<string, string> ={
+  't': 'Tower',
+  't_m': 'Market',
+  't_c': 'City',
+  't_f': 'Ferry',
+  't_k': 'Forge',
+  't_r': 'Treetop'
+}
 export const actualBots: Record<any, string> = {
   ['c' as RootFaction]: 'marquiseBot',
   ['e' as RootFaction]: 'eyrieBot',

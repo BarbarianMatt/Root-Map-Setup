@@ -96,6 +96,14 @@
       </div> 
     </div>
     <div class="center">
+      <h1 (click)="all('bannedLandmarks')">Banned Landmarks</h1>
+    </div>
+    <div class="row-check"> 
+      <div class="row-col" *ngFor="let landmark of keys(getLandmarks()); let index = index">
+        <mat-checkbox  (change)="gameChange()" [(ngModel)]="options.bannedLandmarks[landmark].banned"> {{options.bannedLandmarks[landmark].properName}}</mat-checkbox>
+      </div> 
+    </div>
+    <div class="center">
       <h1 (click)="all('bannedBots')">Banned Bots</h1>
     </div>
     <div class="row-check"> 

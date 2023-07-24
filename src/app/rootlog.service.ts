@@ -95,7 +95,7 @@ export class RootlogService {
       (<any>state).displayRelics=true;
   }
   public lootRuin(building: any, clearing: any) {
-    //console.log(clearing);
+    //console.log(building);
     clearing.buildings['m_b_f']=clearing.buildings['m_b'];
     clearing.buildings['m_b_b']=clearing.buildings['m_b_r'];
     clearing.buildings['m_b_c']=clearing.buildings['m_b_s'];

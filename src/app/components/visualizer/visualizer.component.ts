@@ -41,7 +41,12 @@ export class VisualizerComponent implements OnInit {
   constructor(
     public rootlogService: RootlogService
   ) { }
-
+  trackByBuilding(index: number, building: any): string {
+    return building.name; // Replace 'id' with the unique identifier property of the building object
+  }
+  trackByPlayer(index: number, player: any): string {
+    return player.key; // Replace 'key' with the unique identifier property of the player object
+  }
   ngOnInit(): void {
     this.allActions = this.rootlogService.getAllActions(this.game);
     this.currentAction=this.allActions.length-1;

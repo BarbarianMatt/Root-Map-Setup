@@ -35,18 +35,25 @@
               </div>
             </div>
           </div>
-          <div class="clearing-buildings" *ngIf="clearingHasBuildings(clearing)">
+          <!--<div class="clearing-buildings" *ngIf="clearingHasBuildings(clearing)">
             <h3>Buildings</h3>
 
             <img class="clearing-component building"
                   *ngFor="let building of getBuildings(clearing)"
                   [class.negative]="building.isNegative"
-                  (click)="rootlogService.lootRuin(building,clearing)" 
+                  (click)="rootlogService.lootRuin(building,clearing)"
                   [src]="'assets/buildings/' + replaceCave(getBuildingName(building,clearing),game) + '.png'" />
                   
                  
+          </div>-->
+          <div class="clearing-buildings" *ngIf="clearingHasBuildings(clearing)">
+            <h3>Buildings</h3>
+            <img class="clearing-component building"
+                 *ngFor="let building of getBuildings(clearing); trackBy: trackByBuilding"
+                 [class.negative]="building.isNegative"
+                 (click)="rootlogService.lootRuin(building, clearing)" 
+                 [src]="'assets/buildings/' + replaceCave(getBuildingName(building, clearing), game) + '.png'" />
           </div>
-
           <div class="clearing-tokens" *ngIf="clearingHasTokens(clearing)">
             <h3>Tokens</h3>
 
@@ -166,14 +173,14 @@
     </div>
   </div>
   <div class="container">
-    <div class="col players-col" *ngIf="getPlayers(game).length!=0">
+    <div class="col players-col" *ngIf="getPlayers(game).length != 0">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Draft</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div class="players" *ngIf="state">
-            <div class="player" *ngFor="let player of getPlayers(game)" (click)="rootlogService.displayRelics(state,player)">
+            <div class="player" *ngFor="let player of getPlayers(game); trackBy: trackByPlayer" (click)="rootlogService.displayRelics(state, player)">
               <!--<mat-icon class="player-turn" *ngIf="isActiveTurn(player.key)">play_arrow</mat-icon>-->
               <img class="player-icon" [src]="'assets/icon/faction-' + rootlogService.getFactionNameAndDeck(player) + '.png'" />
               <span class="player-name">{{ player.value }}</span>
@@ -182,7 +189,7 @@
           </div>
         </mat-card-content>
       </mat-card>
-    </div>
+    </div>    
   <div class="col hirelings-col" *ngIf="getHirelings(game).length!=0">
     <mat-card>
       <mat-card-header>
