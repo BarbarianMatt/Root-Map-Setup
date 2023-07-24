@@ -228,9 +228,9 @@ export class MapService {
                     if (suits[landmarkClearings[i]-1].includes('F'))
                         str+='Z%s/Z%s/Z%x/Z%h/'
                     if (suits[landmarkClearings[i]-1].includes('R'))
-                        str+='Z%b/Z%b/Z%t/Z%t/'
-                    if (suits[landmarkClearings[i]-1].includes('M'))
                         str+='Z%f/Z%f/Z%c/Z%c/'
+                    if (suits[landmarkClearings[i]-1].includes('M'))
+                        str+='Z%b/Z%b/Z%t/Z%t/'
                 }
             }
             
