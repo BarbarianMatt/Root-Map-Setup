@@ -1,2 +1,5 @@
+Sometime you need
+	npm install
+	set NODE_OPTIONS=--openssl-legacy-provider
 yarn run start
 yarn run build
