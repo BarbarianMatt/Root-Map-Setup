@@ -1,11 +1,14 @@
 {
   "name": "rootvis",
+  "homepage": "https://barbarianmatt.github.io/Root-Map-Setup",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --port 4332 --hmr",
     "build": "ng build --prod",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +38,7 @@
     "@types/lz-string": "^1.3.34",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "gh-pages": "^6.0.0",
     "prisma": "^4.6.1",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
