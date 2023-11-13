@@ -231,7 +231,11 @@ export class MapService {
                     if (suits[landmarkClearings[i]-1].includes('R'))
                         str+='Z%f/Z%f/Z%c/Z%c/'
                     if (suits[landmarkClearings[i]-1].includes('M'))
+<<<<<<< HEAD
+                       str+='Z%b/Z%b/Z%t/Z%t/'
+=======
                         str+='Z%b/Z%b/Z%t/Z%t/'
+>>>>>>> 49c8b1ece0fdee03ff69c1ed4556645fa2c76340
                 }
             }
             
