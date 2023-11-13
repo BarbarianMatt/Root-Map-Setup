@@ -1,6 +1,6 @@
 {
   "name": "rootvis",
-  "homepage": "https://barbarianmatt.github.io/Root-Map-Setup/",
+  "homepage": "https://barbarianmatt.github.io/Root-Map-Setup",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,7 @@
     "build": "ng build --prod",
     "lint": "ng lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d docs"
+    "deploy": "gh-pages -d build"
   },
   "private": true,
   "dependencies": {
