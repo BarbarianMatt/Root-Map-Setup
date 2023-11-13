@@ -7,7 +7,7 @@
     "start": "ng serve --open --port 4332 --hmr",
     "build": "ng build --prod",
     "lint": "ng lint",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d docs"
   },
   "private": true,
   "dependencies": {
