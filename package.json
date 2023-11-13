@@ -22,9 +22,11 @@
     "@angular/router": "~11.0.4",
     "@angular/service-worker": "~11.0.4",
     "@seiyria/rootlog-parser": "^1.4.0",
+    "add": "^2.0.6",
     "lodash": "^4.17.20",
     "lz-string": "^1.4.4",
     "rxjs": "~6.6.0",
+    "symbol-observable": "^4.0.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

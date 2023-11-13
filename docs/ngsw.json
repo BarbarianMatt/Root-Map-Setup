@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1699861914064,
+  "timestamp": 1699894876195,
   "index": "/Root-Map-Setup/index.html",
   "assetGroups": [
     {
@@ -16,7 +16,7 @@
         "/Root-Map-Setup/7.2eebe3fd61e4815b5b6b.js",
         "/Root-Map-Setup/common.dbc5a3de29d5728e748c.js",
         "/Root-Map-Setup/index.html",
-        "/Root-Map-Setup/main.6294e108baac062c853a.js",
+        "/Root-Map-Setup/main.ff641f3b350cece824b5.js",
         "/Root-Map-Setup/polyfills.3227b3cecbd90ee455b5.js",
         "/Root-Map-Setup/runtime.15d60b45c42bd50412fa.js",
         "/Root-Map-Setup/styles.3156f2604b90311efbc9.css"
@@ -331,8 +331,8 @@
     "/Root-Map-Setup/assets/warrior/faction-warlordBot.png": "69fcbc3447b33bebaafa3f75c702ed57e4d193b0",
     "/Root-Map-Setup/assets/warrior/faction-woodlandBot.png": "2c550adc973fcf524c689edacdc9e1e002faf66c",
     "/Root-Map-Setup/common.dbc5a3de29d5728e748c.js": "4c9e879b0d418b1a89e077ff9d34c44120763ed2",
-    "/Root-Map-Setup/index.html": "da768b00072a4de932ed60c80e2541ce6c1738e4",
-    "/Root-Map-Setup/main.6294e108baac062c853a.js": "b001e567b87a9c7be29d2d612656d2c7e28553d6",
+    "/Root-Map-Setup/index.html": "bde13abc7c19c6571ab51a9b2e3b7ac2deae1e8b",
+    "/Root-Map-Setup/main.ff641f3b350cece824b5.js": "b001e567b87a9c7be29d2d612656d2c7e28553d6",
     "/Root-Map-Setup/polyfills.3227b3cecbd90ee455b5.js": "48cbf5a28ef77014760cdc43e7e584925bb77aec",
     "/Root-Map-Setup/runtime.15d60b45c42bd50412fa.js": "b5c4f812ca012bf6a5f882c83f674b6da7dc62e7",
     "/Root-Map-Setup/styles.3156f2604b90311efbc9.css": "1120121eac4add9eca8fa4c9e28b3b808bf43b75"

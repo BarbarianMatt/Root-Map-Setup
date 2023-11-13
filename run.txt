@@ -1,4 +1,4 @@
-	set NODE_OPTIONS=--openssl-legacy-provider
-	npm install(only on fresh, when it doubt just use original)
+	set NODE_OPTIONS=--openssl-legacy-provider (every time, prevents this[kHandle] = new _Hash(algorithm, xofLen))
+	npm install -g symbol-observable/npm install(if module problems, might be good to ask chatGPT)
 yarn run start
 yarn run build
