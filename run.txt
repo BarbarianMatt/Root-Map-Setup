@@ -1,4 +1,4 @@
 	set NODE_OPTIONS=--openssl-legacy-provider
-	npm update
+	npm install(only on fresh, when it doubt just use original)
 yarn run start
 yarn run build
