@@ -1,6 +1,7 @@
 {
   "name": "rootvis",
   "version": "0.0.0",
+  "homepage": "http://barbarianmatt.github.io/Root-Map-Setup",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --port 4332 --hmr",
