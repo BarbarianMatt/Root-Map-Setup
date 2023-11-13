@@ -7,7 +7,6 @@
     "start": "ng serve --open --port 4332 --hmr",
     "build": "ng build --prod",
     "lint": "ng lint",
-    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "private": true,
