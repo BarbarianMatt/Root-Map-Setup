@@ -8,7 +8,7 @@
     "build": "ng build --prod",
     "lint": "ng lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d docs"
   },
   "private": true,
   "dependencies": {
