@@ -7,6 +7,7 @@
     "start": "ng serve --open --port 4332 --hmr",
     "build": "ng build --prod",
     "lint": "ng lint",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d docs"
   },
   "private": true,
