@@ -1,14 +1,11 @@
 {
   "name": "rootvis",
   "version": "0.0.0",
-  "homepage": ".",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --port 4332 --hmr",
     "build": "ng build --prod",
-    "lint": "ng lint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d docs"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +35,6 @@
     "@types/lz-string": "^1.3.34",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
-    "gh-pages": "^6.0.0",
     "prisma": "^4.6.1",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
